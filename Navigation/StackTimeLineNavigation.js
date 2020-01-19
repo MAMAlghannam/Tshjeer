@@ -2,8 +2,13 @@ import React from 'react';
 import {createStackNavigator} from 'react-navigation-stack';
 import TimeLine from '../Screens/TimeLine';
 import Icon from '@expo/vector-icons/Ionicons';
+import Search from '../Screens/Search';
+import SearchButton from '../Components/SearchButton';
 
-const StackTimeLineNavigation = createStackNavigator({
+//Since we want search screen in modal so we have to make two separated 'createStackNavigator's for that purpos 
+
+//This contains all possible screens to navigate unless Search screen
+const MainStack = createStackNavigator({
     TimeLine:{
         screen: TimeLine,
         navigationOptions:({navigation})=>{
@@ -16,14 +21,28 @@ const StackTimeLineNavigation = createStackNavigator({
                 onPress={()=>navigation.openDrawer()}
                 />,
             headerRight: () =>
-                <Icon 
-                style={{paddingRight:10}} 
-                name="md-search" size={30}
-                onPress={()=> alert("search modal supposed to show up!")}
-                />
+                <SearchButton navigation={navigation}/>
             }
         }
     }
-})
+},
+{
+    navigationOptions:{
+        headerShown: false
+    }
+});
+
+const StackTimeLineNavigation = createStackNavigator({
+    Main:{
+        screen: MainStack
+    },
+    Search:{
+        screen: Search
+    }
+},
+{
+    mode: 'modal',
+    headerMode: 'none'
+});
 
 export default StackTimeLineNavigation;
