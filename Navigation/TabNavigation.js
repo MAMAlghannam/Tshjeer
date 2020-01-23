@@ -41,9 +41,10 @@ const MainTab = createBottomTabNavigator({
     }
 },
 {
+    initialRouteName: "Add",
     tabBarOptions:{
-        activeTintColor: 'green'
-    }
+        activeTintColor: 'green',
+    },
 }
 );
 

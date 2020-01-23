@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { SearchBar, ListItem, FlatList } from 'react-native-elements';
   
   
@@ -10,6 +10,51 @@ const list = [
     {
       name: 'Abdullah',
      
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
+    },
+    {
+      name: 'Fares',
     },
     {
       name: 'Fares',
@@ -38,6 +83,7 @@ class Search extends React.Component{
                     </TouchableOpacity>
                 </View>
                 <View style={styles.listContainer}>
+                <ScrollView style={{}}>
                       {
                       list.map((l, i) => (
                         <ListItem
@@ -46,9 +92,11 @@ class Search extends React.Component{
                           title={l.name}
                           subtitle={l.subtitle}
                           bottomDivider
+                          onPress={()=>{}}
                         />
                       ))
                     }
+                </ScrollView>
                 </View>
             </View>
         )
@@ -58,8 +106,6 @@ class Search extends React.Component{
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        borderWidth: 1,
-        padding: 3,
         backgroundColor:'#e1e8ee',
         paddingTop: Expo.Constants.statusBarHeight,
     },
@@ -72,16 +118,13 @@ const styles = StyleSheet.create({
     },
     serachBar:{
         flex: 4,
-
     },
     cancelButton:{
         flex: 1,
         backgroundColor:'#e1e8ee',
-        
     },
     listContainer:{
         flex: 10,
-        padding: 3
     }
 })
 
