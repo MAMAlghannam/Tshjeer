@@ -69,7 +69,8 @@ class CameraScreen extends React.Component{
                         onPress={()=>{
                             this.setState({WhiteBalance: Camera.Constants.WhiteBalance.auto})
                         }}>
-                        <Text style={[styles.modeBtn, {borderColor: this.state.WhiteBalance == 0 ? 'white' : 'black'}]}
+                        <Text style={[styles.modeBtn, {borderColor: 
+                            this.state.WhiteBalance == Camera.Constants.WhiteBalance.auto ? 'white' : 'black'}]}
                         >auto</Text>
                         </TouchableOpacity>
 
@@ -77,7 +78,8 @@ class CameraScreen extends React.Component{
                         onPress={()=>{
                             this.setState({WhiteBalance: Camera.Constants.WhiteBalance.sunny})
                         }}>
-                        <Text style={[styles.modeBtn, {borderColor: this.state.WhiteBalance == 1 ? 'white' : 'black'}]}
+                        <Text style={[styles.modeBtn, {borderColor: 
+                            this.state.WhiteBalance == Camera.Constants.WhiteBalance.sunny ? 'white' : 'black'}]}
                         >sunny</Text>
                         </TouchableOpacity>
 
@@ -85,7 +87,8 @@ class CameraScreen extends React.Component{
                         onPress={()=>{
                             this.setState({WhiteBalance: Camera.Constants.WhiteBalance.cloudy})
                         }}>
-                        <Text style={[styles.modeBtn, {borderColor: this.state.WhiteBalance == 2 ? 'white' : 'black'}]}
+                        <Text style={[styles.modeBtn, {borderColor: 
+                            this.state.WhiteBalance == Camera.Constants.WhiteBalance.cloudy ? 'white' : 'black'}]}
                         >cloudy</Text>
                         </TouchableOpacity>
 
@@ -93,7 +96,8 @@ class CameraScreen extends React.Component{
                         onPress={()=>{
                             this.setState({WhiteBalance: Camera.Constants.WhiteBalance.shadow})
                         }}>
-                        <Text style={[styles.modeBtn, {borderColor: this.state.WhiteBalance == 4 ? 'white' : 'black'}]}
+                        <Text style={[styles.modeBtn, {borderColor: 
+                            this.state.WhiteBalance == Camera.Constants.WhiteBalance.shadow ? 'white' : 'black'}]}
                         >shadow</Text>
                         </TouchableOpacity>
                         
@@ -101,7 +105,8 @@ class CameraScreen extends React.Component{
                         onPress={()=>{
                             this.setState({WhiteBalance: Camera.Constants.WhiteBalance.fluorescent})
                         }}>
-                        <Text style={[styles.modeBtn, {borderColor: this.state.WhiteBalance == 6 ? 'white' : 'black'}]}
+                        <Text style={[styles.modeBtn, {borderColor: 
+                            this.state.WhiteBalance == Camera.Constants.WhiteBalance.fluorescent ? 'white' : 'black'}]}
                         >flu</Text>
                         </TouchableOpacity>
 
@@ -109,7 +114,8 @@ class CameraScreen extends React.Component{
                         onPress={()=>{
                             this.setState({WhiteBalance: Camera.Constants.WhiteBalance.incandescent})
                         }}>
-                        <Text style={[styles.modeBtn, {borderColor: this.state.WhiteBalance == 5 ? 'white' : 'black'}]}
+                        <Text style={[styles.modeBtn, {borderColor: 
+                            this.state.WhiteBalance == Camera.Constants.WhiteBalance.incandescent ? 'white' : 'black'}]}
                         >inc</Text>
                         </TouchableOpacity>
                     </View>
