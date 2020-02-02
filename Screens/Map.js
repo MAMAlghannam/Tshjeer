@@ -31,7 +31,7 @@ function CalloutForIOS(props){
         </View>
       </View>
       {/*second row*/}
-      <Image source={require('../images/postImg.png')} containerStyle={styles.image} resizeMode='stretch'/>
+      <Image source={require('../images/plant.jpg')} containerStyle={styles.image} resizeMode='stretch'/>
       {/*third row*/}
       <View style={{alignItems: 'center'}}>
         <Arrow name={'caret-down'} color={'grey'} size={25} 
@@ -70,7 +70,7 @@ function CalloutForAndroid(props){
       <Image 
         containerStyle={{ width: Dimensions.get('window').width*0.8, height: 200 }}
         resizeMode='stretch' 
-        source={require('../images/postImg.png')}
+        source={require('../images/plant.jpg')}
       />
       </View>
       {/* like, more */}

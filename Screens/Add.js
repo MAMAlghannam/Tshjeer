@@ -7,7 +7,7 @@ export default class Add extends React.Component {
     <View>
         <Text>Add</Text>
         <Button title="Post" onPress={()=>this.props.navigation.navigate('AddPost')}/>
-        <Button title="Question" onPress={()=>alert('Question')}/>
+        <Button title="Question" onPress={()=>this.props.navigation.navigate('AddQuestion')}/>
     </View>
   );
   }

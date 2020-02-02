@@ -4,7 +4,8 @@ import StackAddNavigation from './StackAddNavigation';
 import StackMapNavigation from './StackMapNavigation';
 import StackTimeLineNavigation from './StackTimeLineNavigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import CameraScreen from '../Screens/Camera';
+import NewQuestion from '../Screens/NewQuestion';
+import CameraStackNavigation from './CameraStackNavigation';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
 //Since we want the user be focused on uploading the post we put the screen on different stack to show it as modal.
@@ -53,7 +54,10 @@ const HomeTabNavigation = createStackNavigator({
         screen: MainTab
     },
     AddPost: {
-        screen: CameraScreen
+        screen: CameraStackNavigation //CameraScreen
+    },
+    AddQuestion:{
+        screen: NewQuestion 
     }
 },{
     mode: 'modal',
