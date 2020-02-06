@@ -1,7 +1,7 @@
 import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 import StackTabNavigation from "./StackTabNavigation";
 import TempScreen from "../Screens/TempScreen";
-import Profile from "../Screens/Profile";
+import Profile from "./ProfileStackNavigation";
 import Activities from "../Screens/Activities";
 import DirectMessages from "../Screens/DirectMessages";
 import About from "../Screens/About";
