@@ -8,7 +8,7 @@ export default class TimeLine extends React.Component {
     <ScrollView>
       <Post />
       <Post />
-      <Post />
+      
     </ScrollView>
   );
   }

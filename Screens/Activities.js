@@ -8,9 +8,11 @@ import { StyleSheet,
           FlatList 
         } from 'react-native';
 import {ListItem,
-        Header,
+      
         Avatar 
       } from 'react-native-elements'
+      import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Input ,Container, Header} from 'native-base'
+      import { Ionicons, EvilIcons ,Feather,FontAwesome,MaterialIcons,AntDesign, Entypo} from '@expo/vector-icons';
 const list = [
     {
       name: 'Mohammed',
@@ -134,25 +136,43 @@ const list = [
     }
   ]
 export default class Activities extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: "Username",
+    }
+  };
+
   
   render(){
+    const { navigation } = this.props;
   return (
     <SafeAreaView style={styles.container}>
 
                 <View >
+                <Header stylez style={{backgroundColor:"white"}}> 
+                        <Left>
+                            <Button transparent title="EditInfo" onPress={()=>this.props.navigation.goBack()}>
+                        <MaterialIcons name="arrow-back" size={30} color="black" />
+                         
+                              </Button>
+                              
+                              
+                        </Left>
+                        
+                    
+                        </Header> 
                       {
+                       
                       
                         <FlatList
                         data={list}
                         renderItem={({item}) =>
                          
                           <View style={styles.listContainer}>
-                                <Avatar
-                                    size="small"
-                                    rounded
-                                    title="MT"
+                            
+                               <Thumbnail source={require('../assets/5.jpeg')} 
                                     onPress={() => alert("you have pressed avatar!")}
-                                    activeOpacity={0.7}
+                                    activeOpacity={0.4}
                                     style={styles.avatar}
                                     
                                   />
@@ -161,7 +181,7 @@ export default class Activities extends React.Component {
                                   <View style={styles.Button}>
                                     <TouchableOpacity
                                     onPress={() => alert("you have pressed username!")}
-                                    ><Text style={{color:'blue'}}> {item.name}</Text></TouchableOpacity>
+                                    ><Text style={{ fontWeight: "900" , color:"#43a047"}}> {item.name}</Text></TouchableOpacity>
                                   </View>
 
                                   <View style={styles.ActionStyle}>
@@ -184,14 +204,15 @@ const styles = StyleSheet.create({
     paddingTop: Expo.Constants.statusBarHeight,
   },
   avatar:{
-    flex:0.3
+    flex:0.4
   },
   listContainer:{
+    marginTop:5,
     padding: 3,
     borderBottomWidth:1,
-    borderBottomColor:'black',
+    borderBottomColor:'white',
     flexDirection:'row',
-    padding:15
+    padding:5
 },
   Button:{
     flex:2,
@@ -203,6 +224,8 @@ const styles = StyleSheet.create({
   },
   NameAndActionView:{
     flex:2,
+    marginLeft:20,
+    marginTop:20,
     flexDirection:'row'
   }
 });

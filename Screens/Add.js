@@ -1,11 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions,ImageBackground } from 'react-native';
 
 export default class Add extends React.Component {
   render(){
   return (
   <View style={styles.container}>
-    <View style={[styles.buttonContainer, {backgroundColor: 'green', }]}>
+    <View style={[styles.buttonContainer]}>
+    <ImageBackground   style={{marginTop:4 , marginLeft:5,height: 130, width: 250, position: 'absolute', resizeMode: 'cover' }}
+    source={require('../assets/8.jpg')}
+    
+        />
     <TouchableOpacity 
       style={styles.button} 
       onPress={()=>this.props.navigation.navigate('AddPost')}
@@ -14,7 +18,11 @@ export default class Add extends React.Component {
     </TouchableOpacity>
     </View>
 
-    <View style={[styles.buttonContainer, {backgroundColor: 'blue'}]}>
+    <View style={[styles.buttonContainer]}>
+    <ImageBackground   style={{marginTop:4 , marginLeft:5,height: 130, width: 250, position: 'absolute', resizeMode: 'cover' }}
+    source={require('../assets/9.jpg')}
+    
+        />
     <TouchableOpacity 
       style={styles.button} 
       onPress={()=>this.props.navigation.navigate('AddQuestion')}
@@ -49,6 +57,7 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize: 22,
-    color: 'white'
+    color: 'white',
+    fontWeight: 'bold' ,fontSize:25
   }
 });
