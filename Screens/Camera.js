@@ -140,8 +140,6 @@ class CameraScreen extends React.Component{
                                 /*Navigate to NewPost Screen which named "PictureTook" 
                                   in the navigator and pass the uri of the image too */
                                 this.props.navigation.navigate('PictureTook',{ uri: photo.uri});
-
-                                // alert('uri: '+photo.uri);
                             }
                         }}>
                             <MaterialIcons name={'lens'} color={'white'} size={90} />

@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { View, 
-  Text, StyleSheet,  Dimensions,TextInput ,Button,Form, TouchableOpacity} from 'react-native';
+  Text, StyleSheet,  Dimensions, TextInput, ActivityIndicator, TouchableOpacity} from 'react-native';
 import Svg,{Image,Circle,ClipPath}from 'react-native-svg'
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
 const { width, height } = Dimensions.get('window');
+
+// keyborad aware scroll view
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+// importing login function
+import login from '../API/login'
 
 const {
   Value,
@@ -53,8 +59,16 @@ function runTiming(clock, value, dest) {
   ]);
 }
 class Login_SignUP extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+    //user credintals
+    email: "",
+    password: "",
+
+    loading: false
+    }
 
     this.buttonOpacity = new Value(1);
     
@@ -113,15 +127,30 @@ class Login_SignUP extends Component {
         extrapolate: Extrapolate.CLAMP 
       });
   }
+
+  //login function
+  _login = () => {
+    this.setState({loading: true})
+
+    const { email, password } = this.state;
+    login(email, password)
+    .catch((err) => { 
+      this.setState({loading: false})
+      alert(err)
+    });
+  }
+
+  //render function
   render() {
     return (
-      <View
-        style={{
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
           flex: 1,
           backgroundColor: 'white',
           justifyContent: 'flex-end'
         }}
-        
+        enableOnAndroid={true} 
+        extraScrollHeight={5}
       >
         
         <Animated.View
@@ -149,10 +178,8 @@ class Login_SignUP extends Component {
                 ...styles.button,
                 opacity: this.buttonOpacity,
                 transform: [{ translateY: this.buttonY }]
-              }}
-              
+              }}  
             >
-              
               <Text style={{ fontSize: 20, fontWeight: 'bold' ,color:'#54a87d' }}>SIGN IN</Text>
             </Animated.View>
           </TapGestureHandler>
@@ -192,31 +219,39 @@ class Login_SignUP extends Component {
 
              </Animated.View>
              </TapGestureHandler> 
-             
+          {/*username field*/}
           <TextInput
-          
-          placeholder="Username"
-          
-          style={styles.textInput}
-          placeholderTextColor='black'/>
-          
-            <TextInput
-          placeholder="Password"
-          style={styles.textInput}
-          placeholderTextColor='black'
+            placeholder="Email"
+            value={this.state.email}
+            onChangeText={(email)=>{this.setState({email: email})}}
+            style={styles.textInput}
+            placeholderTextColor='grey'
+            returnKeyType="next"
+            onSubmitEditing={() => this.passwordField.focus()}
           />
-          
-          
-                <TouchableOpacity  onPress={() => this.props.navigation.navigate('Home')}>
+          {/*password field*/}
+          <TextInput
+            ref={ref => {this.passwordField = ref}}
+            placeholder="Password"
+            secureTextEntry={true}
+            value={this.state.password}
+            onChangeText={(pass)=>{this.setState({password: pass})}}
+            style={styles.textInput}
+            placeholderTextColor='grey'
+            returnKeyType="go"
+            onSubmitEditing={this._login}
+          />
+          <TouchableOpacity disabled={this.state.loading}  onPress={this._login}>
           <Animated.View style={styles.button} >
-           
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>SIGN
-           IN</Text>
+          {
+            this.state.loading ? <ActivityIndicator size="large" color="lightgreen" /> 
+             : <Text style={{ fontSize: 20, fontWeight: 'bold' }}>SIGN IN</Text> 
+          }
           </Animated.View>
           </TouchableOpacity>
           </Animated.View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
