@@ -136,10 +136,17 @@ class CameraScreen extends React.Component{
                         <TouchableOpacity 
                         onPress={ async ()=>{
                             if (this.camera) {
+                                this.camera.pausePreview();
+                                try{
                                 let photo = await this.camera.takePictureAsync();
                                 /*Navigate to NewPost Screen which named "PictureTook" 
-                                  in the navigator and pass the uri of the image too */
-                                this.props.navigation.navigate('PictureTook',{ uri: photo.uri});
+                                  in the navigator and pass the image too */
+                                this.props.navigation.navigate('PictureTook',{ photo: photo});
+                                this.camera.resumePreview();
+                                }catch(err){
+                                    this.camera.resumePreview();
+                                    console.log(err)
+                                }
                             }
                         }}>
                             <MaterialIcons name={'lens'} color={'white'} size={90} />

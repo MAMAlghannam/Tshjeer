@@ -133,6 +133,7 @@ class Login_SignUP extends Component {
     this.setState({loading: true})
 
     const { email, password } = this.state;
+    //this function in API folder
     login(email, password)
     .catch((err) => { 
       this.setState({loading: false})

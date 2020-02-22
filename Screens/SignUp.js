@@ -46,7 +46,7 @@ _signup = () =>{
     alert('Passwords didn\'t match');
     this.setState({loading: false})
   }
-  else{//creating user account
+  else{//creating user account, by calling a function in API folder 
     createUser(username, email, password)
     .then(() => {
       console.log('user account created')

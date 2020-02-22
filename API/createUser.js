@@ -10,7 +10,7 @@ import 'firebase/database'
 
 function createUser(username, email, password){
     return new Promise((resolve, reject) => {
-        var uid; //to share the uid in step 4
+        var uid; //to share the uid with step 4
         const database = firebase.database();
 
         //1. check whether the username is exists or not

@@ -1,16 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions,ImageBackground } from 'react-native';
 
-
-// firebase/auth
-import firebase from 'firebase/app';
-import 'firebase/auth'
-
 export default class Add extends React.Component {
-
-  componentDidMount(){
-    console.log(firebase.auth().currentUser);
-  }
 
   render(){
   return (
