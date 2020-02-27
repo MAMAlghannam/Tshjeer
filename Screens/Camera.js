@@ -136,9 +136,10 @@ class CameraScreen extends React.Component{
                         <TouchableOpacity 
                         onPress={ async ()=>{
                             if (this.camera) {
-                                this.camera.pausePreview();
+                                // this.camera.pausePreview();
                                 try{
-                                let photo = await this.camera.takePictureAsync();
+                                let photo = await this.camera.takePictureAsync({exif: true});
+                                // console.log(photo);
                                 /*Navigate to NewPost Screen which named "PictureTook" 
                                   in the navigator and pass the image too */
                                 this.props.navigation.navigate('PictureTook',{ photo: photo});

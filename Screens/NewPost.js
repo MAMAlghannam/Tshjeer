@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
     imageStyle:{
         height: 400,
         width: Dimensions.get('window').width*0.9,
-        marginLeft: Dimensions.get('window').width*0.05
+        marginLeft: Dimensions.get('window').width*0.05,
+        /*transform: [{ rotate: '-90deg' }],*/
     },
     descStyle:{
         backgroundColor: 'white',

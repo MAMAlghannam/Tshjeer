@@ -9,14 +9,46 @@ import {
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Input ,Container, Header} from 'native-base'
 import { Ionicons, EvilIcons ,Feather,FontAwesome,MaterialIcons,AntDesign, Entypo} from '@expo/vector-icons';
 
+//importing getUserInfo function
+import getUserInfo from '../API/getUserInfo';
+
+/*
+  This component after first rendering it won't re-render again, so it needs to be refreshed,
+  so we need to listen for any changes
+*/
 
 export default class Profile extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: "Username",
+      headerTitle: "Profile",
     }
   };
+
+  constructor(props){
+    super(props)
+    this.state={
+      username: "",
+      avatar: "../images/postImg.png",
+      nTrees: 0,
+      questions: 0,
+      nWatered: 0
+    }
+  }
+
+  setProfileInfo = (userInfo) =>{
+    this.setState({
+      username: userInfo.username,
+      avatar: userInfo.avatar,
+      nTrees: userInfo.nTrees,
+      questions: userInfo.questions,
+      nWatered: userInfo.nWatered
+    })
+  }
+
+  componentDidMount(){
+    getUserInfo(this.setProfileInfo);
+  }
 
   render(){
     const { navigation } = this.props;
@@ -26,9 +58,9 @@ export default class Profile extends React.Component {
       
       <ScrollView>
             <Card>
-                <CardItem  style={{ justifyContent: 'center', alignItems: 'center',marginTop: 80}}>
+                <CardItem  style={{ justifyContent: 'center', alignItems: 'center',marginTop: 25}}>
                     
-                        <Thumbnail style={{width: 80, height: 80}}source={require('../assets/me.png')} />
+                        <Thumbnail style={{width: 80, height: 80}} source={{uri: this.state.avatar}} />
                         
 
                 </CardItem>
@@ -41,7 +73,7 @@ export default class Profile extends React.Component {
                 <CardItem  >
                   <View style={{flex:1,justifyContent: "center",alignItems: "center" , marginTop:-30}}>
                 
-                            <Text  style={{ fontWeight: 'bold' ,fontSize:15}}>Abdullah </Text>
+                            <Text  style={{ fontWeight: 'bold' ,fontSize:15}}>{this.state.username}</Text>
                      </View>
                         
                         
@@ -72,7 +104,7 @@ export default class Profile extends React.Component {
            <Left>
             <View style={{flex:1,justifyContent: "center",alignItems: "center"}} >  
             
-              <Text style={{ fontSize:20 , color:"white"}} >  Plants </Text>
+              <Text style={{ fontSize:20 , color:"white"}} >  Plants{" "+this.state.nTrees} </Text>
               </View></Left><Right>  
              <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>  
                 
@@ -88,7 +120,7 @@ export default class Profile extends React.Component {
            <Left>
             <View style={{flex:1,justifyContent: "center",alignItems: "center"}} >  
             
-              <Text style={{ fontSize:20 , color:"white"}} > Watering </Text>
+              <Text style={{ fontSize:20 , color:"white"}} > Watering{" "+this.state.nWatered} </Text>
               </View></Left><Right>  
              <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>  
                 
@@ -105,7 +137,7 @@ export default class Profile extends React.Component {
            <Left>
             <View style={{flex:1,justifyContent: "center",alignItems: "center"}} >  
             
-              <Text style={{ fontSize:20 , color:"white"}} >  questions </Text>
+              <Text style={{ fontSize:20 , color:"white"}} >  Questions{" "+this.state.questions} </Text>
               </View></Left><Right>  
              <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>  
                 

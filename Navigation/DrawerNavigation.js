@@ -6,7 +6,7 @@ import Activities from "../Screens/Activities";
 import DirectMessages from "../Screens/DirectMessages";
 import About from "../Screens/About";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -18,11 +18,20 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import firebase from 'firebase/app';
 import 'firebase/auth'
 
+import getUserBriefInfo from '../API/getUserBriefInfo';
 
 {/*We want to custom the drawer navigator so here is the component that the drawer navigator will render*/}
 const customDrawerContentComponent = props => {
     // when logout button pressed
     const [loggingOut, setLoggingOut] = useState(false);
+    const [avatar, setAvatar] = useState("../images/avatarImg.png");
+    const [username, setUsername] = useState("");
+    const [nTrees, setNTrees] = useState(0);
+    const [nWatered, setNWatered] = useState(0);
+    
+    useEffect(()=>{ 
+        getUserBriefInfo(setAvatar, setUsername, setNTrees, setNWatered) 
+    });
 
     return (
     <SafeAreaProvider>
@@ -33,19 +42,19 @@ const customDrawerContentComponent = props => {
             <View style={styles.header}>
                 {/*contains user's avatar and name*/}
                 <View style={styles.userInfo}>
-                    <Avatar size="medium" rounded title="MT" activeOpacity={0.7} />
-                    <Text style={{marginLeft: 5, fontSize: 18}}>Username</Text>
+                    <Avatar size="medium" source={{uri: avatar, cache: 'force-cache'}} rounded title="username" activeOpacity={0.7} />
+                    <Text style={{marginLeft: 5, fontSize: 18}}>{username}</Text>
                 </View>
                 {/*contains number of trees and watering*/}
                 <View style={styles.efforts}>
                     <View>
                     <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                         <MaterialCommunityIcons name={'tree'} size={30} color={'#009933'}/> 
-                        <Text style={{fontSize: 15}}> Number of tree </Text>
+                        <Text style={{fontSize: 15}}> {nTrees} </Text>
                     </View>
                     <View style={{paddingLeft: 5,flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                         <Ionicons name={'ios-water'} size={30} color={'deepskyblue'}/>
-                        <Text style={{fontSize: 15}}>  Number of watering </Text>
+                        <Text style={{fontSize: 15}}>  {nWatered} </Text>
                     </View>
                     </View>
                 </View>

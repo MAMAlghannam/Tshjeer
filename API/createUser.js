@@ -14,7 +14,8 @@ function createUser(username, email, password){
         const database = firebase.database();
 
         //1. check whether the username is exists or not
-        checkUsername(username).then(()=>{
+        checkUsername(username)
+        .then(()=>{
             //2. create new user
             return firebase.auth().createUserWithEmailAndPassword(email, password)
         })
@@ -22,7 +23,8 @@ function createUser(username, email, password){
         	uid = cred.user.uid;
             return database.ref('/users/'+cred.user.uid).set({
                 username: username.trim(),
-                email: email.trim()
+                email: email.trim(),
+                avatar: "https://firebasestorage.googleapis.com/v0/b/tsmmaweb.appspot.com/o/avatars%2Fdefault3.png?alt=media&token=bcbf92ad-5385-4da5-bc9c-25742766bad0"
             })
         })
         .then(() => { //4. store the username in usernames collection with its uid
