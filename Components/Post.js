@@ -34,7 +34,11 @@ class Post extends React.Component{
                     </Left>
                 </CardItem>
                 <CardItem cardBody>
-                    <Image source={require('../assets/10.jpg')} style={{ height: 300, width: null, flex: 1 }} />
+                {
+                    false ?
+                    <Image source={require('../assets/10.jpg')} style={{ height: 300, width: null, flex: 1 }} /> 
+                    : <View><Text>I'm a question</Text></View> 
+                }
                 </CardItem>
                 <CardItem style={{ height: 45 }}>
                     <Left>

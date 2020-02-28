@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, Platform  } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Platform, ActivityIndicator  } from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Callout, Marker } from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import { Avatar, Icon, Image, Overlay } from 'react-native-elements';
 import Arrow from '@expo/vector-icons/FontAwesome';
-
+import getAllPosts from '../API/getAllPosts';
 /*
 In Map component we found a different behavior for the callout in android and ios, for the android can't render the image
 on the callout but for the ios it's ok.
@@ -19,7 +19,7 @@ function CalloutForIOS(props){
     <Callout 
     tooltip 
     style={{width: Dimensions.get('window').width*0.8}}
-    onPress={()=>alert('callout pressed! '+props.id)}>
+    onPress={()=>props.navigation('Post')}>
       {/*first row*/}
       <View style={styles.firstRow}>
         <View style={styles.userInfoContainer}>
@@ -27,11 +27,18 @@ function CalloutForIOS(props){
           <Text style={{fontSize:20, margin: 5}}>username</Text>
         </View>
         <View style={styles.sinceContainer}>
-          <Text>-since-</Text>
+          <Text>{new Date(props.since).getDate()}</Text>
         </View>
       </View>
-      {/*second row*/}
-      <Image source={require('../images/plant.jpg')} containerStyle={styles.image} resizeMode='stretch'/>
+      {/*second row*/
+      props.isQuestion ?<View style={styles.image}><Text >{props.desc}</Text></View> :
+      <Image 
+        source={{uri: props.image}} 
+        containerStyle={styles.image} 
+        resizeMode='stretch'
+        PlaceholderContent={<ActivityIndicator />}
+      /> 
+      }
       {/*third row*/}
       <View style={{alignItems: 'center'}}>
         <Arrow name={'caret-down'} color={'grey'} size={25} 
@@ -62,16 +69,19 @@ function CalloutForAndroid(props){
           <Text style={{fontSize:20,margin: 5}}>username</Text>
         </View>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>-since-</Text>
+          <Text>{new Date(props.since).getDate()}</Text>
         </View>
       </View>
       {/* image */}
       <View style={{height: 200, alignItems: 'center'}}>
+      {props.isQuestion ? <Text>{props.desc}</Text>: 
       <Image 
         containerStyle={{ width: Dimensions.get('window').width*0.8, height: 200 }}
         resizeMode='stretch' 
-        source={require('../images/plant.jpg')}
+        source={{uri: props.image, cache: 'force-cache'}}
+        PlaceholderContent={<ActivityIndicator />}
       />
+      }
       </View>
       {/* like, more */}
       <View style={{flex: 1, height: 50, flexDirection: 'row'}}>
@@ -89,13 +99,21 @@ function CalloutForAndroid(props){
     </View>
   )
 }
+var testId = 1;
 
 export default class Map extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       isOverlayVisible: false, 
-      //don't forget the info of the selected post
+      posts: [],
+      //for android callout 
+      image: "",
+      since: 0,
+      desc: "",
+      userID: 0,
+      isQuestion: "",
+
       latitude: null,
       longitude: null
     }
@@ -111,6 +129,13 @@ export default class Map extends React.Component {
       ({coords:{latitude, longitude}}) => this.setState({latitude, longitude}),
       (error) => alert(error)
     )
+
+    getAllPosts(this.fillPosts)
+  }
+
+  fillPosts = (p) =>{
+    this.setState({posts: p})
+    // console.log(this.state.posts)
   }
 
   render(){
@@ -123,25 +148,45 @@ export default class Map extends React.Component {
       provider={PROVIDER_GOOGLE}  
       style={styles.mapStyle} 
       region={{/*just delete the numbers and the colon too*/
-        latitude: 24.774265,
-        longitude: 46.738586,
-        latitudeDelta: 0.203,
-        longitudeDelta: 0.308,
+        latitude: latitude,
+        longitude: longitude,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.3,
       }}
       >
-      {/*marker*/}
-      <Marker 
-        coordinate={{ latitude: 24.774265, longitude: 46.738586 }}
-        onPress={()=>{Platform.OS == 'android' ? this.setState({isOverlayVisible: true}) : null}}>
+      {/*marker*/
+      this.state.posts.map(post => (
+        <Marker 
+        key={(testId++)}
+        coordinate={post.coords}
+        onPress={()=>{Platform.OS == 'android' ? this.setState({
+                      isOverlayVisible: true, 
+                      image: post.image, 
+                      since: post.since,
+                      desc: post.description,
+                      isQuestion: post.isQuestion}) 
+                      : null}}>
+        {post.isQuestion ? <Arrow name="question" size={25} color={'green'}/> : 
         <Avatar 
           rounded
-          source={require('../images/plant.jpg')} 
+          source={{uri: post.image}} 
           size={'small'}  
-          title="T"
+          PlaceholderContent={<ActivityIndicator />}
           containerStyle={{borderWidth:3, borderColor: 'green'}}
         />
-        {Platform.OS == 'ios' ? /*don't forget to pass the props */ <CalloutForIOS /> : null }
-      </Marker>
+        }
+        {Platform.OS == 'ios' ? 
+          <CalloutForIOS 
+            navigation={this.props.navigation.navigate}
+            image={post.image} 
+            since={post.since} 
+            desc={post.description}
+            uid={post.uid}
+            isQuestion={post.isQuestion}
+          /> 
+        : null }
+        </Marker>
+      ))}
       {/*end of marker*/}
       </MapView>
       {
@@ -149,16 +194,26 @@ export default class Map extends React.Component {
         <Overlay isVisible onBackdropPress={()=>this.setState({isOverlayVisible: false})}
         overlayStyle={{ padding: 0, height: 350, width: Dimensions.get('window').width*0.8 }}>
           {/*don't forget to pass the props */}
-          <CalloutForAndroid />
+          <CalloutForAndroid 
+            image={this.state.image} 
+            since={this.state.since} 
+            desc={this.state.desc}
+            isQuestion={this.state.isQuestion}
+          />
         </Overlay>
       )
       }
     </View>
     )
     }
-    
+     
     //if permission for location not granted by the user the line below will be rendered
-    return <View style={{margin: 50}}><Text>Need location permission!</Text></View>
+    return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <ActivityIndicator size={'large'} />
+      <Text>Need location permission!</Text>
+    </View>
+    )
   }
 }
 
@@ -206,7 +261,15 @@ const styles = StyleSheet.create({
     borderLeftWidth:1,
     borderColor:'grey',
     backgroundColor: 'white',
-    height: 200
+    height: 200,
+
+    
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5, 
+    borderTopWidth:1,
+    borderRightWidth:1,
+    borderLeftWidth:1,
+    borderColor:'grey'
   }, //End of styling for CalloutForIOS
   
 });

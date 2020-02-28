@@ -4,7 +4,7 @@ import Search from '../Screens/Search';
 import SearchButton from '../Components/SearchButton';
 import Map from '../Screens/Map';
 import Icon from '@expo/vector-icons/Ionicons';
-
+import Post from '../Components/Post'
 //Since we want search screen in modal so we have to make two separated 'createStackNavigator's for that purpos 
 
 //This contains all possible screens to navigate unless Search screen  
@@ -25,11 +25,15 @@ const MainStack = createStackNavigator({
             }
         }
     },
+    Post: {
+        screen: Post 
+    }
 },
 {
     navigationOptions:{
         headerShown: false
-    }
+    },
+    initialRouteName: "Map"
 });
 
 const StackMapNavigation = createStackNavigator({
@@ -38,7 +42,7 @@ const StackMapNavigation = createStackNavigator({
     },
     Search:{
         screen: Search
-    }
+    },
 },
 {
     mode: 'modal',
