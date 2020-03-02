@@ -53,122 +53,98 @@ export default class Profile extends React.Component {
   render(){
     const { navigation } = this.props;
     return (
-      < Container>
-    
-      
-      <ScrollView>
-            <Card>
-                <CardItem  style={{ justifyContent: 'center', alignItems: 'center',marginTop: 25}}>
-                    
-                        <Thumbnail style={{width: 80, height: 80}} source={{uri: this.state.avatar}} />
-                        
-
-                </CardItem>
-                <CardItem>
-                  <View style={{marginLeft:270 ,marginTop:-30}}>
-                <Right><Text style={{color:"#3492ca"}}>
-                          <Entypo name="add-user" size={15} color="#3492ca" />
-                           Friends</Text></Right></View>
-                </CardItem>
-                <CardItem  >
-                  <View style={{flex:1,justifyContent: "center",alignItems: "center" , marginTop:-30}}>
-                
-                            <Text  style={{ fontWeight: 'bold' ,fontSize:15}}>{this.state.username}</Text>
-                     </View>
-                        
-                        
-                </CardItem>
-                <CardItem  >
-                  <View style={{flex:1,justifyContent: "center",alignItems: "center" }}>
+      <Container>
+        <ScrollView>
+          <Card>
+              <CardItem  style={{ justifyContent: 'center', alignItems: 'center',marginTop: 25}}>
+                <Thumbnail style={{width: 80, height: 80}} source={{uri: this.state.avatar}} />
+              </CardItem>
+              <CardItem>
+                <View style={{flex:1, justifyContent: "center", alignItems: "center", marginTop:-10}}>
+                  <Text style={{ fontWeight: 'bold', fontSize:15}}>{this.state.username}</Text>
+                </View>      
+              </CardItem>
+              <CardItem>
+                <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
+                  <Text style={{fontSize:15, color:"grey"}}>bio...</Text>
+                </View>      
+              </CardItem>
+              <CardItem style={{flex:1}} >
+                <View style={{marginLeft:50 }}>
                   <Button transparent title="EditInfo" onPress={()=>this.props.navigation.navigate('EditInfo')}>
-                            <Text  style={{ fontSize:15 , color:"#3492ca"}}>Edit </Text>
-                              </Button>
-                     </View>
-                        
-                        
-                </CardItem>
-                
-                <CardItem style={{flex:1}} >
-                  <View style={{marginLeft:50 }}>
-                  
-                            <Text  style={{ fontSize:15 , color:"#3492ca"}}>Points </Text>
-                            
-                     </View>
-                        <Right>
-                     <Text  style={{ fontSize:15 , color:"#3492ca"}}>Friends </Text></Right>
-                </CardItem>
-               
-                <Button block warning  title="Plants" onPress={()=>this.props.navigation.navigate('Plants')}
-                 style={{height:80 ,width:345 ,alignSelf:"center" ,marginTop:7,backgroundColor:"#83e345"}}>
-            <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
-           <Left>
-            <View style={{flex:1,justifyContent: "center",alignItems: "center"}} >  
-            
-              <Text style={{ fontSize:20 , color:"white"}} >  Plants{" "+this.state.nTrees} </Text>
-              </View></Left><Right>  
-             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>  
-                
-                    <MaterialIcons  name="keyboard-arrow-right" size={35} color="white"  /> 
-                  </View></Right>  
+                    <Text  style={{ fontSize:15 , color:"#3492ca"}}>Edit </Text>
+                  </Button>
+                </View>
+                <Right>
+                  <Text  style={{ fontSize:15 , color:"#3492ca"}}>Friends</Text>
+                </Right>
+              </CardItem>
               
-              </View>
-             
-               </Button>
-            <Button block warning title="Watering" onPress={()=>this.props.navigation.navigate('Watering')}
-             style={{height:80 ,width:345 ,alignSelf:"center" ,marginTop:7,backgroundColor:"#00b8d4"}}>
-            <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
-           <Left>
-            <View style={{flex:1,justifyContent: "center",alignItems: "center"}} >  
-            
-              <Text style={{ fontSize:20 , color:"white"}} > Watering{" "+this.state.nWatered} </Text>
-              </View></Left><Right>  
-             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>  
-                
-                    <MaterialIcons  name="keyboard-arrow-right" size={35} color="white"  /> 
-                  </View></Right>  
-              
-              </View>
-             
-               </Button>
-            
-            <Button block warning  title="Questions" onPress={()=>this.props.navigation.navigate('Questions')}
-            style={{height:80 ,width:345 ,alignSelf:"center" ,marginTop:7,backgroundColor:"#ffbb33"}}>
-            <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
-           <Left>
-            <View style={{flex:1,justifyContent: "center",alignItems: "center"}} >  
-            
-              <Text style={{ fontSize:20 , color:"white"}} >  Questions{" "+this.state.questions} </Text>
-              </View></Left><Right>  
-             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>  
-                
-                    <MaterialIcons  name="keyboard-arrow-right" size={35} color="white"  /> 
-                  </View></Right>  
-              
-              </View>
+              <Button //plants button
+                block 
+                warning  
+                title="Plants" 
+                onPress={()=>this.props.navigation.navigate('Plants')}
+                style={{height:80 ,width:345 ,alignSelf:"center" ,marginTop:7,backgroundColor:"#83e345"}}
+              >
+                <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
+                  <Left>
+                    <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>
+                      <Text style={{fontSize:20, color:"white"}}> Plants{" "+this.state.nTrees}</Text>
+                    </View>
+                  </Left>
+                  <Right>  
+                    <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
+                      <MaterialIcons name="keyboard-arrow-right" size={35} color="white"/> 
+                    </View>
+                  </Right>  
+                </View>
               </Button>
-            
-            <Button block warning title="Points" onPress={()=>this.props.navigation.navigate('Points')}
-             style={{height:80 ,width:345 ,alignSelf:"center" ,marginTop:7,backgroundColor:"#d50000"}}>
-            <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
-           <Left>
-            <View style={{flex:1,justifyContent: "center",alignItems: "center"}} >  
-            
-              <Text style={{ fontSize:20 , color:"white"}} >  Points </Text>
-              </View></Left><Right>  
-             <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>  
-                
-                    <MaterialIcons  name="keyboard-arrow-right" size={35} color="white"  /> 
-                  </View></Right>  
-              
-              </View>
+
+              <Button //watering button
+                block 
+                warning  
+                title="Watering" 
+                onPress={()=>this.props.navigation.navigate('Watering')}
+                style={{height:80 ,width:345 ,alignSelf:"center" ,marginTop:7,backgroundColor:"#00b8d4"}}
+              >
+                <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
+                  <Left>
+                    <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>
+                      <Text style={{fontSize:20, color:"white"}}> Watered{" "+this.state.nWatered}</Text>
+                    </View>
+                  </Left>
+                  <Right>  
+                    <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
+                      <MaterialIcons name="keyboard-arrow-right" size={35} color="white"/> 
+                    </View>
+                  </Right>  
+                </View>
               </Button>
-                <CardItem cardBody>
-                   
-                </CardItem>
-            </Card>
-            
-            </ScrollView>
-            </Container>
+
+              <Button //questions button
+                block 
+                warning  
+                title="Questions" 
+                onPress={()=>this.props.navigation.navigate('Plants')}
+                style={{height:80, width:345, alignSelf:"center", marginTop:7, backgroundColor:"#ffbb33"}}
+              >
+                <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
+                  <Left>
+                    <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>
+                      <Text style={{fontSize:20, color:"white"}}> Questions{" "+this.state.questions}</Text>
+                    </View>
+                  </Left>
+                  <Right>  
+                    <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
+                      <MaterialIcons name="keyboard-arrow-right" size={35} color="white"/> 
+                    </View>
+                  </Right>  
+                </View>
+              </Button>
+          </Card>
+        </ScrollView>
+      </Container>
     );
   }
 }

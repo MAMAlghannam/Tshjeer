@@ -24,7 +24,7 @@ export default function addPost(photo, coords, desc){
                 {method: 'GET',headers: {'Content-Type':'multipart/form-data'}}).then((res)=>{return res.blob()})
             //we faced an issue with ios, it upload the photo after changing its orientation -90 degrees !!,
             //so we set a metadata stores this information we may need it when reading the photo
-            const metadata = {customMetadata: {orientation: photo.exif.Orientation}}
+            const metadata = {customMetadata: {orientation: photo.exif.Orientation || 0}}
             //2. upload the image then get the URL
             var uniqueNameForImage = uuidv4();
             const specifyPath = storage.ref().child('images/'+user.uid+'-'+uniqueNameForImage)
