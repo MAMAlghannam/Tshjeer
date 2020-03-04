@@ -1,134 +1,99 @@
-import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
-import { SearchBar, ListItem, FlatList } from 'react-native-elements';
-  
-  
-const list = [
-    {
-      name: 'Mohammed',
-    },
-    {
-      name: 'Abdullah',
-     
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    },
-    {
-      name: 'Fares',
-    }
-  ]
+import * as React from "react";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ScrollView
+} from "react-native";
+import { SearchBar, ListItem, FlatList } from "react-native-elements";
+import search from "../API/searchUsers";
 
-class Search extends React.Component{
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      searchedUser: "",
+      loading: false,
+      userFound: []
+    };
+  }
 
+  fillUserFound = searchedUserFound => {
+    this.setState({ userFound: searchedUserFound });
+  };
 
+  searchedUserFunction = text => {
+    // first we will change the state (searchedUser = what the user typed)
+    this.setState({
+      searchedUser: text
+    });
+    search(this.fillUserFound, text);
+  };
 
-    render(){
-        return(
-            <View style={styles.container}>
-                <View style={styles.barContainer}>
-                    <SearchBar
-                        containerStyle={styles.serachBar}
-                        placeholder="Type Here..."
-                        lightTheme={true}
-                        round 
-                    />
-                    <TouchableOpacity 
-                    style={styles.cancelButton}
-                    onPress={() => this.props.navigation.goBack()}
-                     >
-                      <Text style={{color:'#86939e'}}>Cancel</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.listContainer}>
-                <ScrollView style={{}}>
-                      {
-                      list.map((l, i) => (
-                        <ListItem
-                          key={i}
-                          leftAvatar={{ source: { uri: l.avatar_url } }}
-                          title={l.name}
-                          subtitle={l.subtitle}
-                          bottomDivider
-                          onPress={()=>{}}
-                        />
-                      ))
-                    }
-                </ScrollView>
-                </View>
-            </View>
-        )
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.barContainer}>
+          <SearchBar
+            containerStyle={styles.serachBar}
+            placeholder="Type Here..."
+            lightTheme={true}
+            round
+            onChangeText={text => this.searchedUserFunction(text)}
+            value={this.state.searchedUser}
+          />
+
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={() => this.props.navigation.goBack()}
+          >
+            <Text style={{ color: "#86939e" }}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.listContainer}>
+          <ScrollView>
+            {this.state.userFound.map((user, index) => (
+              <ListItem
+                key={index}
+                leftAvatar={user.avatar}
+                title={user.username}
+                bottomDivider
+                onPress={() => {
+                  alert("pressed");
+                }}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        backgroundColor:'#e1e8ee',
-        paddingTop: Expo.Constants.statusBarHeight,
-    },
-    barContainer:{
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor:'#e1e8ee'
-    },
-    serachBar:{
-        flex: 4,
-    },
-    cancelButton:{
-        flex: 1,
-        backgroundColor:'#e1e8ee',
-    },
-    listContainer:{
-        flex: 10,
-    }
-})
+  container: {
+    flex: 1,
+    backgroundColor: "#e1e8ee",
+    paddingTop: Expo.Constants.statusBarHeight
+  },
+  barContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#e1e8ee"
+  },
+  serachBar: {
+    flex: 4
+  },
+  cancelButton: {
+    flex: 1,
+    backgroundColor: "#e1e8ee"
+  },
+  listContainer: {
+    flex: 10
+  }
+});
 
-
-           
-
-export default Search;
+export default App;
