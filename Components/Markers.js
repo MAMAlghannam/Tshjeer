@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Dimensions, Platform, ActivityIndicator } from 
 import { Callout, Marker } from 'react-native-maps';
 import { Avatar, Icon, Image } from 'react-native-elements';
 import Arrow from '@expo/vector-icons/FontAwesome';
+import moment from 'moment';
 
 //importing from API
 import getAllPosts, {unsubscribePostsRef} from '../API/getAllPosts';
@@ -29,12 +30,22 @@ function CalloutForIOS(props){
     useEffect(()=>{ 
       getUserByUID(props.uid, setAvatar, setUsername) 
     });
-  
     return (
       <Callout 
       tooltip 
       style={{width: Dimensions.get('window').width*0.8}}
-      onPress={()=>props.navigation('Post')}>
+      onPress={()=>{
+        const postInfo = {
+          postID: props.postID,
+          image: props.image, 
+          since: props.since, 
+          desc: props.desc, 
+          uid: props.uid,
+          lastTimeWatered: props.lastTimeWatered,
+          isQuestion: props.isQuestion
+        }
+        props.navigation('PostContainerInMap', postInfo)
+      }}>
         {/*first row*/}
         <View style={styles.firstRow}>
           <View style={styles.userInfoContainer}>
@@ -42,7 +53,7 @@ function CalloutForIOS(props){
             <Text style={{fontSize:20, margin: 5}}>{username}</Text>
           </View>
           <View style={styles.sinceContainer}>
-            <Text>{new Date(props.since).getDate()}</Text>
+            <Text>{moment(new Date(props.since)).fromNow(true)}</Text>
           </View>
         </View>
         {/*second row*/
@@ -83,78 +94,89 @@ return(
 var testId = 1;
 
 class Markers extends React.Component{
-    _isMounted = false;
-    constructor(props){
-        super(props);
-        this.state = {
-          posts: [],
-          tracksViewChanges: true,
-        }
-    }
+  _isMounted = false;
+  constructor(props){
+      super(props);
+      this.state = {
+        posts: [],
+        tracksViewChanges: true,
+      }
+  }
 
-    stopTrackingViewChanges = () => {
-        this.setState(() => ({
-          tracksViewChanges: false,
-        }));
-    }
+  stopTrackingViewChanges = () => {
+      this.setState(() => ({
+        tracksViewChanges: false,
+      }));
+  }
 
-    componentDidMount(){
-        this._isMounted = true;
-        getAllPosts(this.fillPosts)
-    }
+  componentDidMount(){
+      this._isMounted = true;
+      getAllPosts(this.fillPosts)
+  }
 
-    fillPosts = (p) =>{
-        if (this._isMounted){
-            this.setState({posts: p})
-        }
-    }
+  fillPosts = (p) =>{
+      if (this._isMounted){
+          this.setState({posts: p})
+      }
+  }
 
-    componentWillUnmount() {
-        this._isMounted = false;
-        unsubscribePostsRef();
-        console.log('markers will unmount!!')
-    }
+  componentWillUnmount() {
+      this._isMounted = false;
+      unsubscribePostsRef();
+      console.log('markers will unmount!!')
+  }
 
-    render(){
+  render(){
     const { tracksViewChanges } = this.state;
-
+    var arrayContainsKeys = Object.keys(this.state.posts);
     return (
-        this.state.posts.map(post => (
+      Object.entries(this.state.posts).map((post, index) => (
         <Marker
         tracksViewChanges={tracksViewChanges}
-        key={(testId++)}
-        coordinate={post.coords}
+        key={post[0]}
+        coordinate={post[1].coords}
         onPress={()=>{
-            Platform.OS == 'android' ? this.props.navigation.navigate('Post') : null
+          const postInfo = {
+            postID: post[0]/*arrayContainsKeys[index]*/,
+            image: post[1].image, 
+            since: post[1].since, 
+            desc: post[1].description, 
+            uid: post[1].uid,
+            lastTimeWatered: post[1].lastTimeWatered,
+            isQuestion: post[1].isQuestion
+          }
+          Platform.OS == 'android' ? this.props.navigation.navigate('PostContainerInMap', postInfo) : null;
         }}
         >
-        {post.isQuestion ? 
+        {post[1].isQuestion ? 
         <Arrow name="question" size={25} color={'green'}/> 
         : <Avatar
             imageProps={{onLoad: this.stopTrackingViewChanges,
             fadeDuration: 0}}
             rounded
-            source={{uri: post.image}} 
-            size={'small'}  
+            source={{uri: post[1].image}} 
+            size={'small'}
             PlaceholderContent={<ActivityIndicator />}
             containerStyle={{borderWidth: 3, borderColor: 'green'}}
-        />
+          />
         }
         {Platform.OS == 'ios' ? 
         <CalloutForIOS 
-            navigation={this.props.navigation.navigate}
-            image={post.image} 
-            since={post.since} 
-            desc={post.description}
-            uid={post.uid}
-            isQuestion={post.isQuestion}
+          postID={post[0]/*arrayContainsKeys[index]*/}
+          navigation={this.props.navigation.navigate}
+          image={post[1].image} 
+          since={post[1].since} 
+          desc={post[1].description}
+          uid={post[1].uid}
+          lastTimeWatered={post[1].lastTimeWatered}
+          isQuestion={post[1].isQuestion}
         />
         : <CalloutForAndroid navigation={this.props.navigation.navigate} /> 
         }
         </Marker>
-        ))
-    );
-    }
+      ))
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -171,6 +193,7 @@ const styles = StyleSheet.create({
     },
     //styling for CalloutForIOS
     firstRow:{
+      padding: 5,
       flex:1,
       flexDirection:'row', 
       backgroundColor: 'white',

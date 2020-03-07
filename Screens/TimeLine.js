@@ -6,8 +6,6 @@ export default class TimeLine extends React.Component {
   render(){
   return (
     <ScrollView>
-      <Post />
-      <Post />
       
     </ScrollView>
   );

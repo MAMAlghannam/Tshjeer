@@ -7,7 +7,7 @@ import {
   ScrollView
 } from "react-native";
 import { SearchBar, ListItem, FlatList } from "react-native-elements";
-import search from "../API/searchUsers";
+import search from "../API/searchUser";
 
 class App extends React.Component {
   constructor() {

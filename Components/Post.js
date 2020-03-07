@@ -5,63 +5,85 @@ import {
     StyleSheet,
     Image,ScrollView
 } from "react-native";
-
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Input} from 'native-base'
 import { Ionicons, EvilIcons ,Feather,FontAwesome} from '@expo/vector-icons';
+import moment from 'moment';
 
+//importing getUserByUID
+import getUserByUID from '../API/getUserByUID';
 
 class Post extends React.Component{
     
+    constructor(props){
+        super(props);
+        this.state={
+            avatar: "'../images/avatarImg.png'",
+            username: ""
+        }
+    }
+    
+    componentDidMount(){
+        getUserByUID(this.props.userID, this.setAvatar, this.setUseranme);
+    }
+
+    setAvatar = (avatar) =>{
+        this.setState({avatar})
+    }
+
+    setUseranme = (username) =>{
+        this.setState({username})
+    }
+
     render() {
 
-        const images = {
-
-            "1": require('../assets/1.jpg'),
-            "2": require('../assets/2.jpg'),
-            "3": require('../assets/3.png')
-        }
+        const {userID, postID, imageUri, isQuestion, desc, since, lastTimeWatered} = this.props;
 
         return (
           <ScrollView>
             <Card>
+                {/*user info*/}
                 <CardItem>
                     <Left>
-                        <Thumbnail source={require('../assets/5.jpeg')} />
+                        <Thumbnail source={{uri: this.state.avatar}} />
                         <Body>
-                            <Text>Abdullah </Text>
-                            <Text note>Jan 29, 2020</Text>
+                            <Text>{this.state.username}</Text>
+                            <Text note>{moment(new Date(since)).fromNow()}</Text>
                         </Body>
                     </Left>
                 </CardItem>
+                {/*image and description*/}
                 <CardItem cardBody>
                 {
-                    false ?
-                    <Image source={require('../assets/10.jpg')} style={{ height: 300, width: null, flex: 1 }} /> 
-                    : <View><Text>I'm a question</Text></View> 
+                    isQuestion ? null
+                    : <Image source={{uri: imageUri}} resizeMode="contain" style={{ height: 300, width: null, flex: 1 }} />
                 }
                 </CardItem>
+                <View><Text>{desc}</Text></View>
+                {/*buttons*/}
                 <CardItem style={{ height: 45 }}>
                     <Left>
+                        {
+                            isQuestion ? null 
+                            : <Button transparent>
+                            <Ionicons name="ios-water" size={30} color="#b3e5fc" />
+                            </Button>    
+                        }
                         <Button transparent>
-                        <Ionicons name="ios-water" size={30} color="#b3e5fc" />
+                          <FontAwesome 
+                            name="comment-o" 
+                            size={26} 
+                            color="#616161"
+                            onPress={()=>{
+                                this.props.navigation('Comments', {postID: postID})
+                            }}
+                          />
                         </Button>
-                        <Button transparent>
-                          <FontAwesome name="comment-o" size={26} color="#616161" />
-                        </Button>
-                        <Button transparent>
-                            < Feather name="send" size={23} color="#616161"  />
-                        </Button>
-
-
                     </Left>
                     <Right>
-                <Text>11h ago</Text>
-              </Right>
+                        {isQuestion ? null : <Text>{moment(new Date(lastTimeWatered)).fromNow()}</Text>}
+                    </Right>
                 </CardItem>
-
-                <CardItem style={{ marginTop:-10}}>
-                    <Text style={{ fontWeight: "500",color:"#039be5"}}>10 waterd </Text>
-                </CardItem>
+                {/*comments area*/}
                 <CardItem>
                     <Body style={{marginTop:-15}}>
                         <Text>
@@ -85,147 +107,6 @@ class Post extends React.Component{
                             #lte's_make_earth_better_place
                         </Text>
                     </Body>
-                    </CardItem> 
-                     <CardItem>
-                    
-                        <Item rounded style={{ borderColor:'rgba(0,0,0,0.6)',backgroundColor:'rgba(250,250,250,0.10)',height:30,width:330}}>
-                          <Input style={{backgroundColor:'rgba(250,250,250,0.10)'}} placeholder='Add Comment...'/>
-                        </Item>
-                  
-                </CardItem>
-            </Card>
-            <Card>
-                <CardItem>
-                    <Left>
-                        <Thumbnail source={require('../assets/5.jpeg')} />
-                        <Body>
-                            <Text>Abdullah </Text>
-                            <Text note>Jan 29, 2020</Text>
-                        </Body>
-                    </Left>
-                </CardItem>
-                <CardItem cardBody>
-                    <Image source={require('../assets/11.jpg')} style={{ height: 300, width: null, flex: 1 }} />
-                </CardItem>
-                <CardItem style={{ height: 45 }}>
-                    <Left>
-                        <Button transparent>
-                        <Ionicons name="ios-water" size={30} color="#b3e5fc" />
-                        </Button>
-                        <Button transparent>
-                          <FontAwesome name="comment-o" size={26} color="#616161" />
-                        </Button>
-                        <Button transparent>
-                            < Feather name="send" size={23} color="#616161"  />
-                        </Button>
-
-
-                    </Left>
-                    <Right>
-                <Text>11h ago</Text>
-              </Right>
-                </CardItem>
-
-                <CardItem style={{ marginTop:-10}}>
-                    <Text style={{ fontWeight: "500",color:"#039be5"}}>10 waterd </Text>
-                </CardItem>
-                <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Abdullah  </Text>
-                            i have cultivated my first palm using TSMMA thanks for motivating and helping in making the earth better place.
-                        </Text>
-                    </Body>
-                    </CardItem>
-                    <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Mohammed  </Text>
-                            we will take care of it 
-                        </Text>
-                    </Body>
-                    </CardItem>
-                    <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text style={{color:"blue"}}>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Fares </Text>
-                            #lte's_make_earth_better_place
-                        </Text>
-                    </Body>
-                    </CardItem> 
-                     <CardItem>
-                    
-                        <Item rounded style={{ borderColor:'rgba(0,0,0,0.6)',backgroundColor:'rgba(250,250,250,0.10)',height:30,width:330}}>
-                          <Input style={{backgroundColor:'rgba(250,250,250,0.10)'}} placeholder='Add Comment...'/>
-                        </Item>
-                  
-                </CardItem>
-            </Card>
-            <Card>
-                <CardItem>
-                    <Left>
-                        <Thumbnail source={require('../assets/5.jpeg')} />
-                        <Body>
-                            <Text>Abdullah </Text>
-                            <Text note>Jan 29, 2020</Text>
-                        </Body>
-                    </Left>
-                </CardItem>
-                <CardItem cardBody>
-                    <Image source={require('../assets/4.jpg')} style={{ height: 300, width: null, flex: 1 }} />
-                </CardItem>
-                <CardItem style={{ height: 45 }}>
-                    <Left>
-                        <Button transparent>
-                        <Ionicons name="ios-water" size={30} color="#b3e5fc" />
-                        </Button>
-                        <Button transparent>
-                          <FontAwesome name="comment-o" size={26} color="#616161" />
-                        </Button>
-                        <Button transparent>
-                            < Feather name="send" size={23} color="#616161"  />
-                        </Button>
-
-
-                    </Left>
-                    <Right>
-                <Text>11h ago</Text>
-              </Right>
-                </CardItem>
-
-                <CardItem style={{ marginTop:-10}}>
-                    <Text style={{ fontWeight: "500",color:"#039be5"}}>10 waterd </Text>
-                </CardItem>
-                <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Abdullah  </Text>
-                            i have cultivated my first palm using TSMMA thanks for motivating and helping in making the earth better place.
-                        </Text>
-                    </Body>
-                    </CardItem>
-                    <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Mohammed  </Text>
-                            we will take care of it 
-                        </Text>
-                    </Body>
-                    </CardItem>
-                    <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text style={{color:"blue"}}>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Fares </Text>
-                            #lte's_make_earth_better_place
-                        </Text>
-                    </Body>
-                    </CardItem> 
-                     <CardItem>
-                    
-                        <Item rounded style={{ borderColor:'rgba(0,0,0,0.6)',backgroundColor:'rgba(250,250,250,0.10)',height:30,width:330}}>
-                          <Input style={{backgroundColor:'rgba(250,250,250,0.10)'}} placeholder='Add Comment...'/>
-                        </Item>
-                  
                 </CardItem>
             </Card>
             </ScrollView>

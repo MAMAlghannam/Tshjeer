@@ -7,7 +7,8 @@ function postsRef(){
 
 export default function getAllPosts(sendPosts){
     postsRef().on('value', (snapshot)=>{
-        sendPosts(Object.values(snapshot.val()))
+        // sendPosts(Object.keys(snapshot.val()))
+        sendPosts(snapshot.val())
     })
 }
 
