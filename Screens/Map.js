@@ -32,7 +32,6 @@ export default class Map extends React.Component {
 
   componentWillUnmount() {
     this._isMounted = false;
-    unsubscribePostsRef();
     console.log('map will unmount!!')
   }
 

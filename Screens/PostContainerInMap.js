@@ -24,7 +24,6 @@ class PostContainerInMap extends React.Component{
                 lastTimeWatered={lastTimeWatered}
                 navigation={this.props.navigation.navigate}
             />
-            {console.log("postContainer ", this.props.navigation.state.params)}
         </View>
         )
     }

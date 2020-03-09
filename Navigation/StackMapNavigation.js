@@ -6,6 +6,11 @@ import SearchButton from '../Components/SearchButton';
 import Map from '../Screens/Map';
 import Icon from '@expo/vector-icons/Ionicons';
 import PostContainerInMap from '../Screens/PostContainerInMap';
+import Profile from '../Screens/Profile';
+import Plants from '../Screens/Plants';
+import Watering from '../Screens/Watering';
+import Questions from '../Screens/Questions';
+import Points from '../Screens/Points';
 //Since we want search screen in modal so we have to make two separated 'createStackNavigator's for that purpos 
 
 //This contains all possible screens to navigate unless Search screen  
@@ -31,7 +36,22 @@ const MainStack = createStackNavigator({
     },
     Comments:{
         screen: CommentsScreen
-    }
+    }, 
+    ProfileInMap:{ 
+        screen: Profile,
+    },
+    Plants: {
+        screen: Plants
+    },
+    Watering: {
+        screen: Watering
+    },
+    Questions: {
+        screen: Questions
+    },
+    Points: {
+        screen: Points
+    },
 },
 {
     navigationOptions:{

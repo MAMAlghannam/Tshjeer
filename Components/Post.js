@@ -3,14 +3,17 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,ScrollView
+    Image,ScrollView,
+    TouchableOpacity
 } from "react-native";
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Input} from 'native-base'
 import { Ionicons, EvilIcons ,Feather,FontAwesome} from '@expo/vector-icons';
 import moment from 'moment';
+import Comment from './Comment';
 
 //importing getUserByUID
 import getUserByUID from '../API/getUserByUID';
+import getBriefComments from '../API/getBriefComments';
 
 class Post extends React.Component{
     
@@ -18,20 +21,22 @@ class Post extends React.Component{
         super(props);
         this.state={
             avatar: "'../images/avatarImg.png'",
-            username: ""
+            username: "",
+            briefComments: [],
         }
     }
     
-    componentDidMount(){
-        getUserByUID(this.props.userID, this.setAvatar, this.setUseranme);
-    }
+    async componentDidMount(){
+        try{
+            var { avatar, username} = await getUserByUID(this.props.userID)
+            this.setState({avatar: avatar, username: username})
 
-    setAvatar = (avatar) =>{
-        this.setState({avatar})
-    }
-
-    setUseranme = (username) =>{
-        this.setState({username})
+            var briefComments = await getBriefComments(this.props.postID)
+            this.setState({ briefComments })
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 
     render() {
@@ -46,7 +51,12 @@ class Post extends React.Component{
                     <Left>
                         <Thumbnail source={{uri: this.state.avatar}} />
                         <Body>
-                            <Text>{this.state.username}</Text>
+                            <TouchableOpacity 
+                            onPress={()=>{
+                                this.props.navigation('ProfileInMap', {userID: userID})
+                            }}>
+                                <Text>{this.state.username}</Text>
+                            </TouchableOpacity>
                             <Text note>{moment(new Date(since)).fromNow()}</Text>
                         </Body>
                     </Left>
@@ -63,10 +73,10 @@ class Post extends React.Component{
                 <CardItem style={{ height: 45 }}>
                     <Left>
                         {
-                            isQuestion ? null 
-                            : <Button transparent>
+                        isQuestion ? null 
+                        : <Button transparent>
                             <Ionicons name="ios-water" size={30} color="#b3e5fc" />
-                            </Button>    
+                          </Button>    
                         }
                         <Button transparent>
                           <FontAwesome 
@@ -83,31 +93,17 @@ class Post extends React.Component{
                         {isQuestion ? null : <Text>{moment(new Date(lastTimeWatered)).fromNow()}</Text>}
                     </Right>
                 </CardItem>
-                {/*comments area*/}
-                <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Abdullah  </Text>
-                            i have cultivated my first palm using TSMMA thanks for motivating and helping in making the earth better place.
-                        </Text>
-                    </Body>
-                    </CardItem>
-                    <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Mohammed  </Text>
-                            we will take care of it 
-                        </Text>
-                    </Body>
-                    </CardItem>
-                    <CardItem>
-                    <Body style={{marginTop:-15}}>
-                        <Text style={{color:"blue"}}>
-                            <Text style={{ fontWeight: "900" , color:"#43a047"}}>Fares </Text>
-                            #lte's_make_earth_better_place
-                        </Text>
-                    </Body>
+                {/*comments area*/
+                this.state.briefComments.map((comment, index) =>(
+                <CardItem key={index}>
+                    <Comment 
+                        userID={comment.userID} 
+                        comment={comment.comment} 
+                        timestamp={comment.timestamp}
+                    />
                 </CardItem>
+                ))
+                }
             </Card>
             </ScrollView>
         );

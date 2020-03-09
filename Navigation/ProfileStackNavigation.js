@@ -7,6 +7,7 @@ import Questions from '../Screens/Questions';
 import Points from '../Screens/Points';
 import EditInfo from '../Screens/EditInfo';
 import Icon from '@expo/vector-icons/Ionicons';
+import CommentsScreen from '../Screens/CommentsScreen';
 
 //suggested
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -51,9 +52,13 @@ const ProfileStackNavigation = createStackNavigator({
     Points: {
         screen: Points
     },
+    CommentsInProfileStack:{
+        screen: CommentsScreen
+    },
 },
 {
     headerMode: 'none',
+    initialRouteName: "Profile",
     defaultNavigationOptions:({navigation})=>{
         return{
         headerLeft: () =>

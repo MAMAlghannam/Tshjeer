@@ -3,12 +3,10 @@ import { StyleSheet, Text, View, Dimensions, Platform, ActivityIndicator } from 
 import { Callout, Marker } from 'react-native-maps';
 import { Avatar, Icon, Image } from 'react-native-elements';
 import Arrow from '@expo/vector-icons/FontAwesome';
-import moment from 'moment';
+import CalloutForIOS from '../Components/CalloutForIOS';
 
 //importing from API
 import getAllPosts, {unsubscribePostsRef} from '../API/getAllPosts';
-import getUserByUID from '../API/getUserByUID';
-
 
 /*
 In Map component we found a different behavior for the callout in android and ios, for the android can't render the image
@@ -19,66 +17,6 @@ This file contains two functions (CalloutForIOS, CalloutForAndroid) which it wil
 the Map component.
 */
 
-
-function CalloutForIOS(props){
-    const [avatar, setAvatar] = useState('../images/avatarImg.png')
-    const [username, setUsername] = useState("")
-  
-    // Warning: Can't perform a React state update on an unmounted component. 
-    // This is a no-op, but it indicates a memory leak in your application. To fix, 
-    // cancel all subscriptions and asynchronous tasks in %s.%s, a useEffect cleanup function
-    useEffect(()=>{ 
-      getUserByUID(props.uid, setAvatar, setUsername) 
-    });
-    return (
-      <Callout 
-      tooltip 
-      style={{width: Dimensions.get('window').width*0.8}}
-      onPress={()=>{
-        const postInfo = {
-          postID: props.postID,
-          image: props.image, 
-          since: props.since, 
-          desc: props.desc, 
-          uid: props.uid,
-          lastTimeWatered: props.lastTimeWatered,
-          isQuestion: props.isQuestion
-        }
-        props.navigation('PostContainerInMap', postInfo)
-      }}>
-        {/*first row*/}
-        <View style={styles.firstRow}>
-          <View style={styles.userInfoContainer}>
-            <Avatar source={{uri: avatar}} size={'small'} containerStyle={{margin:5}} rounded title="T"/>
-            <Text style={{fontSize:20, margin: 5}}>{username}</Text>
-          </View>
-          <View style={styles.sinceContainer}>
-            <Text>{moment(new Date(props.since)).fromNow(true)}</Text>
-          </View>
-        </View>
-        {/*second row*/
-        props.isQuestion ? <View style={styles.question}><Text >{props.desc}</Text></View> 
-        : <Image 
-            source={{uri: props.image}} 
-            containerStyle={styles.image} 
-            resizeMode='stretch'
-            PlaceholderContent={<ActivityIndicator />}
-          /> 
-        }
-        {/*third row*/}
-        <View style={{alignItems: 'center'}}>
-          <Arrow name={'caret-down'} color={'grey'} size={25} 
-          style={{
-            marginTop: -10,
-            marginBottom: -5,
-            shadowOpacity: 0.3,
-            shadowOffset: { width: 1, height: 4 }
-          }}/>
-        </View>
-      </Callout>
-    )
-}
-  
 function CalloutForAndroid(props){
 return(
 <Callout tooltip>
@@ -90,8 +28,6 @@ return(
 </Callout>
 )
 }
-
-var testId = 1;
 
 class Markers extends React.Component{
   _isMounted = false;
@@ -115,9 +51,9 @@ class Markers extends React.Component{
   }
 
   fillPosts = (p) =>{
-      if (this._isMounted){
-          this.setState({posts: p})
-      }
+    if (this._isMounted){
+        this.setState({posts: p})
+    }
   }
 
   componentWillUnmount() {
