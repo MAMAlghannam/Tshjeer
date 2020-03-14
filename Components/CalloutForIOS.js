@@ -36,7 +36,8 @@ export default class CalloutForIOS extends React.Component{
             desc: this.props.desc, 
             uid: this.props.uid,
             lastTimeWatered: this.props.lastTimeWatered,
-            isQuestion: this.props.isQuestion
+            isQuestion: this.props.isQuestion,
+            coords: this.props.coords
             }
             this.props.navigation('PostContainerInMap', postInfo)
         }}>

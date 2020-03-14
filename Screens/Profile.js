@@ -10,7 +10,7 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Inp
 import { Ionicons, EvilIcons ,Feather,FontAwesome,MaterialIcons,AntDesign, Entypo} from '@expo/vector-icons';
 
 //importing getUserInfo function
-import getUserInfo from '../API/getUserInfo';
+import getUserInfo, {unsubscribeRef} from '../API/getUserInfo';
 import getUserByUID from '../API/getUserByUID';
 
 //importing auth from firebase
@@ -73,6 +73,10 @@ export default class Profile extends React.Component {
       getUserInfo(this.setProfileInfo);
   }
 
+  componentWillUnmount(){
+    unsubscribeRef();
+  }
+  
   render(){
     const user = firebase.auth().currentUser;
     var { params } = this.props.navigation.state;

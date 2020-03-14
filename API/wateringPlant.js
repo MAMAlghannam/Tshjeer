@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import 'firebase/storage'
 import 'firebase/database'
 import 'firebase/functions'
 
@@ -9,7 +8,7 @@ import 'firebase/functions'
     which on its behalf will insert it in the database.
 */
 
-export default function addQuestion(coords, desc){
-    var questionInfo = {desc: desc, coords: coords};
-    return firebase.functions().httpsCallable('addQuestion')(questionInfo);
+export default function wateringPlant(usersCoords, plantID, plantsCoords){
+    var wateringInfo = {usersCoords: usersCoords, plantID: plantID, plantsCoords: plantsCoords};
+    return firebase.functions().httpsCallable('waterPlant')(wateringInfo);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TextInput} from 'react-native'; 
+import { View, StyleSheet, TextInput, Keyboard} from 'react-native'; 
 import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 
 //importing from API folder
@@ -15,8 +15,12 @@ export default class CommentForm extends React .Component{
     }
 
     sendComment = () =>{
-        sendComment(this.props.postID, this.state.text)
-        this.setState({text: ""});
+        if(this.state.text.trim() != ""){
+            sendComment(this.props.postID, this.state.text, this.props.addExtraData)
+            this.setState({text: ""});
+            Keyboard.dismiss();
+        }
+        Keyboard.dismiss();
     }
 
     render(){
@@ -30,7 +34,7 @@ export default class CommentForm extends React .Component{
                     maxLength={500}
                     placeholder={"Type here..."}
                     ref={ref => {this.commentField = ref}}
-                    returnKeyType="go"
+                    returnKeyType="send"
                     onSubmitEditing={this.sendComment}
                 />
             </View>

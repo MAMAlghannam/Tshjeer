@@ -79,7 +79,8 @@ class Markers extends React.Component{
             desc: post[1].description, 
             uid: post[1].uid,
             lastTimeWatered: post[1].lastTimeWatered,
-            isQuestion: post[1].isQuestion
+            isQuestion: post[1].isQuestion,
+            coords: post[1].coords
           }
           Platform.OS == 'android' ? this.props.navigation.navigate('PostContainerInMap', postInfo) : null;
         }}
@@ -106,6 +107,7 @@ class Markers extends React.Component{
           uid={post[1].uid}
           lastTimeWatered={post[1].lastTimeWatered}
           isQuestion={post[1].isQuestion}
+          coords={post[1].coords}
         />
         : <CalloutForAndroid navigation={this.props.navigation.navigate} /> 
         }

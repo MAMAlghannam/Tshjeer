@@ -52,7 +52,7 @@ const ProfileStackNavigation = createStackNavigator({
     Points: {
         screen: Points
     },
-    CommentsInProfileStack:{
+    Comments:{
         screen: CommentsScreen
     },
 },

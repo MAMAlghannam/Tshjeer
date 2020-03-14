@@ -23,8 +23,16 @@ class CommentsScreen extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            comments: []
+            comments: [],
+            extraComment: null
         }
+    }
+
+    addExtraData = ({userID, comment}) =>{
+        const newComment = [];
+        newComment[0] = "who knows!";
+        newComment[1] = {userID, comment, timestamp: 0};
+        this.setState({comments: [...this.state.comments, newComment]})
     }
 
     fillComments = (c) =>{
@@ -58,10 +66,12 @@ class CommentsScreen extends React.Component{
                     timestamp={item[1].timestamp} 
                 />
             )}
+            ref={ref=>{this.commentsList = ref}}
+            extraData={this.state}
             keyExtractor={item => item[0]}
             />
             </View>
-            <CommentForm postID={postID} />
+            <CommentForm addExtraData={this.addExtraData} postID={postID} />
         </View>
         )
     }

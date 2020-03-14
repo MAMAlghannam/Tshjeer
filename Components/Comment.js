@@ -9,21 +9,24 @@ export default class Comment extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            username: ""
+            username: "",
+            usernameFound: false
         }
     }
 
     async componentDidMount(){
         var { username } = await getUserByUID(this.props.userID)
-        this.setState({username: username})
+        this.setState({username: username, usernameFound: true})
     }
 
     render(){
         return (
-        <View style={styles.commentContainer}>
+            this.state.usernameFound ?
+            <View style={styles.commentContainer}>
             <Text style={styles.username}>{this.state.username}: </Text>
             <Text style={styles.content}>{this.props.comment}</Text>
-        </View>
+            </View>
+            : null
         )
     }
 }

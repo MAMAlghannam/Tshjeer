@@ -11,7 +11,7 @@ class PostContainerInMap extends React.Component{
     };
 
     render(){
-        const {postID, image, since, desc, uid, isQuestion, lastTimeWatered} = this.props.navigation.state.params;
+        const {postID, image, since, desc, uid, isQuestion, lastTimeWatered, coords} = this.props.navigation.state.params;
         return(
         <View style={{flex: 1, justifyContent: 'center', alignContent: 'center'}}>
             <Post
@@ -22,6 +22,7 @@ class PostContainerInMap extends React.Component{
                 since={since}
                 desc={desc}
                 lastTimeWatered={lastTimeWatered}
+                coords={coords}
                 navigation={this.props.navigation.navigate}
             />
         </View>

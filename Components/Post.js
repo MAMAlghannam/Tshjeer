@@ -10,6 +10,7 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Inp
 import { Ionicons, EvilIcons ,Feather,FontAwesome} from '@expo/vector-icons';
 import moment from 'moment';
 import Comment from './Comment';
+import WaterButton from './WaterButton';
 
 //importing getUserByUID
 import getUserByUID from '../API/getUserByUID';
@@ -41,7 +42,7 @@ class Post extends React.Component{
 
     render() {
 
-        const {userID, postID, imageUri, isQuestion, desc, since, lastTimeWatered} = this.props;
+        const {userID, postID, imageUri, isQuestion, desc, since, lastTimeWatered, coords} = this.props;
 
         return (
           <ScrollView>
@@ -72,12 +73,6 @@ class Post extends React.Component{
                 {/*buttons*/}
                 <CardItem style={{ height: 45 }}>
                     <Left>
-                        {
-                        isQuestion ? null 
-                        : <Button transparent>
-                            <Ionicons name="ios-water" size={30} color="#b3e5fc" />
-                          </Button>    
-                        }
                         <Button transparent>
                           <FontAwesome 
                             name="comment-o" 
@@ -90,7 +85,15 @@ class Post extends React.Component{
                         </Button>
                     </Left>
                     <Right>
-                        {isQuestion ? null : <Text>{moment(new Date(lastTimeWatered)).fromNow()}</Text>}
+                        <Button transparent>
+                        { isQuestion ? null :
+                            <WaterButton 
+                                postID={postID} 
+                                lastTimeWatered={lastTimeWatered}
+                                coords={coords}
+                            />
+                        }
+                        </Button>
                     </Right>
                 </CardItem>
                 {/*comments area*/

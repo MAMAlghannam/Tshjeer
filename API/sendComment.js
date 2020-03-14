@@ -7,7 +7,7 @@ import 'firebase/functions'
     
 */
 
-export default function sendComment(postID, comment){
+export default function sendComment(postID, comment, showInComments){
     return new Promise( async (resolve, reject) =>{
         try{
             const user = firebase.auth().currentUser || null;
@@ -16,6 +16,7 @@ export default function sendComment(postID, comment){
                 firebase.database().ref('/comments/'+postID).push(commentInfo)
                 .then(()=>{
                     resolve('sent sucessfully')
+                    showInComments({userID: user.uid, comment: comment})
                 })
                 .catch((err)=> reject(err))
             }

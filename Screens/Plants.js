@@ -49,6 +49,7 @@ class Plants extends React.Component{
                             since={post[1].since}
                             desc={post[1].description}
                             lastTimeWatered={post[1].lastTimeWatered}
+                            coords={post[1].coords}
                             navigation={this.props.navigation.navigate}
                         />
                         )

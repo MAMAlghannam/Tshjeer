@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator 
 import { Header } from 'react-native-elements';
 import * as Permissions from 'expo-permissions';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+//importing from API folder
 import addQuestion from '../API/addQuestion'
 
 class NewQuestion extends React.Component{
@@ -17,16 +19,21 @@ class NewQuestion extends React.Component{
     }
 
     async componentDidMount(){
-        const {status} = await Permissions.getAsync(Permissions.LOCATION)
-        if(status != 'granted'){
-            alert('Ensure to enable your GPS')
-            this.props.navigation.navigate('Add')
+        try{
+            const {status} = await Permissions.getAsync(Permissions.LOCATION)
+            if(status != 'granted'){
+                alert('Ensure to enable your GPS')
+                this.props.navigation.navigate('Add')
+            }
+            navigator.geolocation.getCurrentPosition(
+                (coords)=>{this.setState(coords)},//when it succeeded
+                (error) => alert(error),//when something went wrong
+                {enableHighAccuracy: true}//options 
+            )
         }
-        navigator.geolocation.getCurrentPosition(
-            (coords)=>{this.setState(coords)},//when it succeeded
-            (error) => alert(error),//when something went wrong
-            {enableHighAccuracy: true}//options 
-        )
+        catch(err){
+            console.log('NewQuestion', err)
+        }
     }
 
     addQuestion = () =>{
