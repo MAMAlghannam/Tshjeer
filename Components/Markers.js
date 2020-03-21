@@ -4,6 +4,7 @@ import { Callout, Marker } from 'react-native-maps';
 import { Avatar, Icon, Image } from 'react-native-elements';
 import Arrow from '@expo/vector-icons/FontAwesome';
 import CalloutForIOS from '../Components/CalloutForIOS';
+import moment from 'moment'
 
 //importing from API
 import getAllPosts, {unsubscribePostsRef} from '../API/getAllPosts';
@@ -64,7 +65,7 @@ class Markers extends React.Component{
 
   render(){
     const { tracksViewChanges } = this.state;
-    var arrayContainsKeys = Object.keys(this.state.posts);
+    
     return (
       Object.entries(this.state.posts).map((post, index) => (
         <Marker
@@ -73,7 +74,7 @@ class Markers extends React.Component{
         coordinate={post[1].coords}
         onPress={()=>{
           const postInfo = {
-            postID: post[0]/*arrayContainsKeys[index]*/,
+            postID: post[0],
             image: post[1].image, 
             since: post[1].since, 
             desc: post[1].description, 
@@ -86,7 +87,7 @@ class Markers extends React.Component{
         }}
         >
         {post[1].isQuestion ? 
-        <Arrow name="question" size={25} color={'green'}/> 
+        <Arrow name="question" size={25} color={'darkorange'}/> 
         : <Avatar
             imageProps={{onLoad: this.stopTrackingViewChanges,
             fadeDuration: 0}}
@@ -94,12 +95,12 @@ class Markers extends React.Component{
             source={{uri: post[1].image}} 
             size={'small'}
             PlaceholderContent={<ActivityIndicator />}
-            containerStyle={{borderWidth: 3, borderColor: 'green'}}
+            containerStyle={{borderWidth: 3, borderColor: getStatusColor(post[1])}}
           />
         }
         {Platform.OS == 'ios' ? 
         <CalloutForIOS 
-          postID={post[0]/*arrayContainsKeys[index]*/}
+          postID={post[0]}
           navigation={this.props.navigation.navigate}
           image={post[1].image} 
           since={post[1].since} 
@@ -117,68 +118,14 @@ class Markers extends React.Component{
   }
 }
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'white',
-    },
-    mapStyle: {
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height,
-    },
-    //styling for CalloutForIOS
-    firstRow:{
-      padding: 5,
-      flex:1,
-      flexDirection:'row', 
-      backgroundColor: 'white',
-      borderTopLeftRadius: 5,
-      borderTopRightRadius: 5, 
-      borderTopWidth:1,
-      borderRightWidth:1,
-      borderLeftWidth:1,
-      borderColor:'grey',
-    },
-    userInfoContainer:{
-      flex: 3,
-      flexDirection:'row',
-      borderColor:'red',
-      alignItems: 'center',
-    },
-    sinceContainer:{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderColor:'#99ff66'
-    },
-    image:{
-      borderBottomLeftRadius: 5,
-      borderBottomRightRadius: 5,
-      borderBottomWidth:1,
-      borderRightWidth:1,
-      borderLeftWidth:1,
-      borderColor:'grey',
-      backgroundColor: 'white',
-      height: 200,
-    }, 
-    question:{
-      borderBottomLeftRadius: 5,
-      borderBottomRightRadius: 5,
-      borderBottomWidth:1,
-      borderRightWidth:1,
-      borderLeftWidth:1,
-      borderColor:'grey',
-      backgroundColor: 'white',
-      padding: 10,
-      
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderColor:'grey'
-    }, //End of styling for CalloutForIOS
-    
-  });
+function getStatusColor(postInfo){
+  var diffInHours = moment().diff(postInfo.lastTimeWatered, 'h');
+  if(diffInHours > 48)
+    return 'red';
+  else if(diffInHours < 24 && diffInHours > 15)
+    return 'green';
+  else 
+    return 'blue';
+}
 
 export default Markers;

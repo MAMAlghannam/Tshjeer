@@ -24,6 +24,7 @@ class Post extends React.Component{
             avatar: "'../images/avatarImg.png'",
             username: "",
             briefComments: [],
+            wateredTime: null
         }
     }
     
@@ -40,9 +41,16 @@ class Post extends React.Component{
         }
     }
 
-    render() {
+    setLastTimeWatered = (newTime) => {
+        this.setState({wateredTime: newTime})
+    }
 
-        const {userID, postID, imageUri, isQuestion, desc, since, lastTimeWatered, coords} = this.props;
+    render() {
+        const {userID, postID, imageUri, isQuestion, desc, since, lastTimeWatered, coords, placed} = this.props;
+        
+        const { wateredTime }  = this.state;
+        var realLastTimeWatered = 0;
+        wateredTime == null ? realLastTimeWatered = lastTimeWatered : realLastTimeWatered = wateredTime;
 
         return (
           <ScrollView>
@@ -54,7 +62,7 @@ class Post extends React.Component{
                         <Body>
                             <TouchableOpacity 
                             onPress={()=>{
-                                this.props.navigation('ProfileInMap', {userID: userID})
+                                this.props.navigation('ProfileIn'+placed, {userID: userID})
                             }}>
                                 <Text>{this.state.username}</Text>
                             </TouchableOpacity>
@@ -73,25 +81,30 @@ class Post extends React.Component{
                 {/*buttons*/}
                 <CardItem style={{ height: 45 }}>
                     <Left>
+                        {
+                        isQuestion ? null :
+                            <WaterButton 
+                                postID={postID} 
+                                setLastTimeWatered={this.setLastTimeWatered}
+                                lastTimeWatered={realLastTimeWatered}
+                                coords={coords}
+                            />
+                        }
                         <Button transparent>
-                          <FontAwesome 
-                            name="comment-o" 
-                            size={26} 
-                            color="#616161"
-                            onPress={()=>{
-                                this.props.navigation('Comments', {postID: postID})
-                            }}
-                          />
+                            <FontAwesome 
+                                name="comment-o" 
+                                size={26} 
+                                color="#616161"
+                                onPress={()=>{
+                                    this.props.navigation('Comments', {postID: postID})
+                                }}
+                            />
                         </Button>
                     </Left>
                     <Right>
                         <Button transparent>
                         { isQuestion ? null :
-                            <WaterButton 
-                                postID={postID} 
-                                lastTimeWatered={lastTimeWatered}
-                                coords={coords}
-                            />
+                            <Text note>{"  •  "+moment(new Date(realLastTimeWatered)).fromNow()}</Text>
                         }
                         </Button>
                     </Right>

@@ -55,7 +55,7 @@ const MainStack = createStackNavigator({
 },
 {
     navigationOptions:{
-        headerShown: false
+        headerShown: true
     },
     initialRouteName: "Map"
 });

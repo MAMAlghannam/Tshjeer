@@ -3,10 +3,11 @@ import {View, Text} from 'react-native';
 
 class Watering extends React.Component{
 
-    static navigationOptions = ({navigation})=>{
-        return{
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerShown: false,
         }
-    }
+    };
 
     render(){
         return (

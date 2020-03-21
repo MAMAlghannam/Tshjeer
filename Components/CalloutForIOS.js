@@ -57,7 +57,7 @@ export default class CalloutForIOS extends React.Component{
                 source={{uri: this.props.image}} 
                 containerStyle={styles.image} 
                 resizeMode='stretch'
-                PlaceholderContent={<ActivityIndicator />}
+                PlaceholderContent={<ActivityIndicator style={{flex: 1}} />}
             /> 
             }
             {/*third row*/}

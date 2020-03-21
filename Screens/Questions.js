@@ -9,6 +9,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 class Questions extends React.Component{
 
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerShown: false,
+        }
+    };
+
     constructor(props){
         super(props);
         this.state = {
@@ -42,6 +48,7 @@ class Questions extends React.Component{
                     if(post[1].isQuestion){
                         return (
                         <Post
+                            placed="Map"
                             userID={post[1].uid}
                             postID={post[0]}
                             imageUri={post[1].image}

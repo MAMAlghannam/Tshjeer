@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, FlatList, } from 'react-native'; 
 import CommentForm from '../Components/CommentForm';
 import Comment from '../Components/Comment';
+import { Header } from 'react-native-elements';
 
 //importing from API folder
 import getComments from '../API/getComments';
@@ -16,7 +17,7 @@ class CommentsScreen extends React.Component{
 
     static navigationOptions = ({ navigation }) => {
         return {
-          headerTitle: "Comments",
+            headerShown: false,
         }
     };
 
@@ -56,6 +57,11 @@ class CommentsScreen extends React.Component{
 
         return(
         <View style={{flex: 1, borderColor: 'blue'}}>
+            <Header
+                containerStyle={{backgroundColor: 'white'}}
+                leftComponent={{ icon: 'keyboard-arrow-left', size: 40, onPress: ()=> { this.props.navigation.goBack() } }}
+                centerComponent={ <Text style={{fontSize: 20,fontWeight: '500'}}>Comments</Text> }
+            />
             <View style={{flex: 8}}>
             <FlatList
             data={this.state.comments}

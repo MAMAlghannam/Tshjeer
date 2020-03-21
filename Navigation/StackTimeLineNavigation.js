@@ -4,6 +4,11 @@ import TimeLine from '../Screens/TimeLine';
 import Icon from '@expo/vector-icons/Ionicons';
 import Search from '../Screens/Search';
 import SearchButton from '../Components/SearchButton';
+import Profile from '../Screens/Profile';
+import Plants from '../Screens/Plants';
+import Watering from '../Screens/Watering';
+import Questions from '../Screens/Questions';
+import CommentsScreen from '../Screens/CommentsScreen';
 
 //Since we want search screen in modal so we have to make two separated 'createStackNavigator's for that purpos 
 
@@ -24,6 +29,21 @@ const MainStack = createStackNavigator({
                 <SearchButton navigation={navigation}/>
             }
         }
+    },
+    Comments:{
+        screen: CommentsScreen
+    }, 
+    ProfileInTimeLine:{ 
+        screen: Profile,
+    },
+    Plants: {
+        screen: Plants
+    },
+    Watering: {
+        screen: Watering
+    },
+    Questions: {
+        screen: Questions
     }
 },
 {

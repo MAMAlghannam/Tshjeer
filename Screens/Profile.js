@@ -5,10 +5,9 @@ import {
   StyleSheet,
   Image,ScrollView 
 } from "react-native";
-
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Input ,Container, Header} from 'native-base'
 import { Ionicons, EvilIcons ,Feather,FontAwesome,MaterialIcons,AntDesign, Entypo} from '@expo/vector-icons';
-
+import FollowFunctionality from '../Components/FollowFunctionality'
 //importing getUserInfo function
 import getUserInfo, {unsubscribeRef} from '../API/getUserInfo';
 import getUserByUID from '../API/getUserByUID';
@@ -117,9 +116,7 @@ export default class Profile extends React.Component {
                     <Text  style={{ fontSize:15 , color:"#3492ca"}}>Edit </Text>
                   </Button>
                   :
-                  <Button transparent title="EditInfo" onPress={()=>alert('Follwo functionality is coming soon')}>
-                    <Text  style={{ fontSize:15 , color:"#3492ca"}}>Follow </Text>
-                  </Button>
+                  <FollowFunctionality userID={params.userID} />
                 : 
                 <Button transparent title="EditInfo" onPress={()=>this.props.navigation.navigate('EditInfo')}>
                   <Text  style={{ fontSize:15 , color:"#3492ca"}}>Edit </Text>
