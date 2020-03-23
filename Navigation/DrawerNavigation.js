@@ -47,15 +47,14 @@ const customDrawerContentComponent = props => {
                 </View>
                 {/*contains number of trees and watering*/}
                 <View style={styles.efforts}>
-                    <View>
-                    <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{padding: 5, flexDirection: 'row', alignItems: 'center', }}>
                         <MaterialCommunityIcons name={'tree'} size={30} color={'#009933'}/> 
                         <Text style={{fontSize: 15}}> {nTrees} </Text>
                     </View>
-                    <View style={{paddingLeft: 5,flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                    <Text>{"   "}</Text>
+                    <View style={{padding: 5,flexDirection: 'row', alignItems: 'center', }}>
                         <Ionicons name={'ios-water'} size={30} color={'deepskyblue'}/>
                         <Text style={{fontSize: 15}}>  {nWatered} </Text>
-                    </View>
                     </View>
                 </View>
             </View>
@@ -103,9 +102,8 @@ const styles = StyleSheet.create({
   },
   efforts:{
     flex: 2,
-    alignItems: 'flex-start',
-    padding: 5,
-    paddingLeft: 15
+    flexDirection: 'row',
+    padding: 5
   },
   options:{
     padding: 1,

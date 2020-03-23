@@ -120,12 +120,12 @@ class Markers extends React.Component{
 
 function getStatusColor(postInfo){
   var diffInHours = moment().diff(postInfo.lastTimeWatered, 'h');
-  if(diffInHours > 48)
-    return 'red';
+  if(diffInHours < 1)
+    return 'blue';
   else if(diffInHours < 24 && diffInHours > 15)
     return 'green';
   else 
-    return 'blue';
+    return 'red';
 }
 
 export default Markers;

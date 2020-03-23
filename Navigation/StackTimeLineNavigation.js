@@ -19,6 +19,7 @@ const MainStack = createStackNavigator({
         navigationOptions:({navigation})=>{
             return{
             headerTitle: "Tshjeer",
+            headerStyle:{ borderBottomWidth: 1 },
             headerLeft: () =>
                 <Icon 
                 style={{paddingLeft:10}} 
@@ -26,7 +27,7 @@ const MainStack = createStackNavigator({
                 onPress={()=>navigation.openDrawer()}
                 />,
             headerRight: () =>
-                <SearchButton navigation={navigation}/>
+                <SearchButton navigation={navigation}/>,
             }
         }
     },
