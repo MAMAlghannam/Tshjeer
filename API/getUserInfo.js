@@ -19,6 +19,7 @@ export default function getUserInfo(sendUserInfo){
             sendUserInfo({
                 username: snapshot.val().username,
                 avatar: snapshot.val().avatar,
+                bio: snapshot.val().bio || "",
                 nTrees: snapshot.val().numberOfTrees || 0,
                 questions: snapshot.val().questions || 0,
                 nWatered: snapshot.val().numberOfWatering || 0

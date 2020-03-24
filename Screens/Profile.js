@@ -34,6 +34,7 @@ export default class Profile extends React.Component {
     this.state={
       username: "",
       avatar: "../images/postImg.png",
+      bio: "",
       nTrees: 0,
       questions: 0,
       nWatered: 0
@@ -44,6 +45,7 @@ export default class Profile extends React.Component {
     this.setState({
       username: userInfo.username,
       avatar: userInfo.avatar,
+      bio: userInfo.bio,
       nTrees: userInfo.nTrees,
       questions: userInfo.questions,
       nWatered: userInfo.nWatered
@@ -101,7 +103,7 @@ export default class Profile extends React.Component {
             </CardItem>
             <CardItem>
               <View style={{flex:1, justifyContent: "center", alignItems: "center"}}>
-                <Text style={{fontSize:15, color:"grey"}}>bio...</Text>
+                <Text style={{fontSize:15, color:"grey"}}>{this.state.bio}</Text>
               </View>      
             </CardItem>
             <CardItem style={{flex:1}} >

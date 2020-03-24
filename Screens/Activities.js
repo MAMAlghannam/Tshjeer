@@ -1,233 +1,76 @@
-
 import React from 'react';
-import { StyleSheet,
-          Text,
-          View,
-          TouchableOpacity,
-          SafeAreaView,
-          FlatList 
-        } from 'react-native';
-import {ListItem,
-      
-        Avatar 
-      } from 'react-native-elements'
-      import { Card, CardItem, Thumbnail, Body, Left, Right, Button ,Content,Item ,Input ,Container, Header} from 'native-base'
-      import { Ionicons, EvilIcons ,Feather,FontAwesome,MaterialIcons,AntDesign, Entypo} from '@expo/vector-icons';
-const list = [
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:1
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:2
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:3
-    },
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:4
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:5
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:6
-    },
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:7
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:8
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:9
-    },
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:10
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:11
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:12
-    },
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:13
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:14
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:15
-    },
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:16
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:17
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:18
-    },
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:19
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:20
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:21
-    },
-    {
-      name: 'Mohammed',
-      action:"Liked your post ",
-      id:22
-    },
-    {
-      name: 'Abdullah',
-      action: 'Added you as a friend',
-     id:23
-    },
-    {
-      name: 'Fares',
-      action : "Watered your plant",
-      id:24
-    }
-  ]
+import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
+import { Header } from 'react-native-elements'
+import ActivityItem from '../Components/ActivityItem';
+
+//importing from API folder
+import getActivities from '../API/getActivities'
+
 export default class Activities extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: "Username",
     }
-  };
+  }
 
-  
+  constructor(props){
+    super(props);
+    this.state = {
+      activities: [],
+      refreshing: true
+    }
+  }
+
+  fillActivities = (activities) =>{
+    this.setState({activities, refreshing: false})
+  }
+
+  componentDidMount(){
+    this.bringActivities();
+  }
+
+  bringActivities = () =>{
+    this.setState({activities: []})
+    getActivities(this.fillActivities);
+  }
+
   render(){
     const { navigation } = this.props;
-  return (
-    <SafeAreaView style={styles.container}>
-
-                <View >
-                <Header stylez style={{backgroundColor:"white"}}> 
-                        <Left>
-                            <Button transparent title="EditInfo" onPress={()=>this.props.navigation.goBack()}>
-                        <MaterialIcons name="arrow-back" size={30} color="black" />
-                         
-                              </Button>
-                              
-                              
-                        </Left>
-                        
-                    
-                        </Header> 
-                      {
-                       
-                      
-                        <FlatList
-                        data={list}
-                        renderItem={({item}) =>
-                         
-                          <View style={styles.listContainer}>
-                            
-                               <Thumbnail source={require('../assets/5.jpeg')} 
-                                    onPress={() => alert("you have pressed avatar!")}
-                                    activeOpacity={0.4}
-                                    style={styles.avatar}
-                                    
-                                  />
-                                <View style={styles.NameAndActionView}>
-
-                                  <View style={styles.Button}>
-                                    <TouchableOpacity
-                                    onPress={() => alert("you have pressed username!")}
-                                    ><Text style={{ fontWeight: "900" , color:"#43a047"}}> {item.name}</Text></TouchableOpacity>
-                                  </View>
-
-                                  <View style={styles.ActionStyle}>
-                                    <Text >{item.action}</Text>
-                                  </View>
-
-                                </View>
-                          </View>
-                      }
-                      keyExtractor={item => item.id.toString()}
-                      />                  
-                    }
-                </View>
-    </SafeAreaView>
-  );
-}}
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Expo.Constants.statusBarHeight,
-  },
-  avatar:{
-    flex:0.4
-  },
-  listContainer:{
-    marginTop:5,
-    padding: 3,
-    borderBottomWidth:1,
-    borderBottomColor:'white',
-    flexDirection:'row',
-    padding:5
-},
-  Button:{
-    flex:2,
-    alignItems:'flex-start',
- 
-  },
-  ActionStyle:{
-    alignItems: 'flex-end',
-  },
-  NameAndActionView:{
-    flex:2,
-    marginLeft:20,
-    marginTop:20,
-    flexDirection:'row'
+    const { activities } = this.state;
+    return (
+      <View style={{flex: 1}}>
+        <Header
+          containerStyle={{backgroundColor: 'white'}}
+          leftComponent={{ icon: 'menu', size: 30, onPress: ()=> { this.props.navigation.openDrawer() } }}
+          centerComponent={ <Text style={{fontSize: 20,fontWeight: '500'}}>Activities</Text> }
+        />
+      { activities.length == 0 ? 
+        //if there is no activity found
+        <ScrollView style={{backgroundColor: '#efefef'}}
+          contentContainerStyle={{alignItems: 'center'}}
+          refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringActivities} />}
+        >
+          <Text style={{fontSize: 18, color: 'grey'}}>No activities yet</Text>
+        </ScrollView> 
+        : 
+        //if there is activity found
+        <ScrollView style={{backgroundColor: '#efefef'}}
+          refreshControl={
+            <RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringActivities} />
+          }
+        >
+        {
+          Object.entries(activities).map((activity, index)=>(
+            <ActivityItem 
+              key={activity[0]} 
+              activity={activity[1]} 
+              navigation={navigation.navigate} 
+            />
+          ))
+        }
+        </ScrollView>
+      }
+      </View>
+    );
   }
-});
-
- 
+}

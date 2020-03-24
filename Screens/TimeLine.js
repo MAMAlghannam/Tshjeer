@@ -29,6 +29,17 @@ export default class TimeLine extends React.Component {
   }
   
   render(){
+  if(this.state.posts.length == 0)
+    return(
+      <ScrollView style={{backgroundColor: '#efefef'}}
+        contentContainerStyle={{alignItems: 'center'}}
+        refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringPosts} />}
+      >
+        <Text style={{fontSize: 18, color: 'grey'}}>No posts yet</Text>
+      </ScrollView> 
+    )
+
+    
   return (
     <ScrollView
     refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringPosts} />}
