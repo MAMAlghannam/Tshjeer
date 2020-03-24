@@ -17,8 +17,10 @@ export default function sendComment(postID, comment, showInComments){
                 .then(()=>{
                     resolve('sent sucessfully')
                     showInComments({userID: user.uid, comment: comment})
+                    activityInfo = { type: "comment", postID: postID, content: comment }
+                    firebase.functions().httpsCallable('addActivity')(activityInfo)
                 })
-                .catch((err)=> reject(err))
+            .catch((err)=> reject(err))
             }
             else
                 reject('Not authenticated !');

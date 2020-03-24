@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database'
+import 'firebase/functions'
 
 export default async function checkFollowing(userID){
     const user = firebase.auth().currentUser || null;
@@ -13,6 +14,7 @@ exports.follow = (userID) =>{
         const user = firebase.auth().currentUser || null;
         firebase.database().ref('followers/'+userID).update({ [user.uid]: true })
         firebase.database().ref('following/'+user.uid).update({ [userID]: true })
+        firebase.functions().httpsCallable('addActivity')({type: "followed", followedID: userID})
         return true;
     }
     catch(err){
