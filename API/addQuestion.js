@@ -10,6 +10,7 @@ import 'firebase/functions'
 */
 
 export default function addQuestion(coords, desc){
+    desc = desc.trim();
     var questionInfo = {desc: desc, coords: coords};
     return firebase.functions().httpsCallable('addQuestion')(questionInfo);
 }

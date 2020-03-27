@@ -2,6 +2,9 @@ import firebase from "firebase/app";
 import "firebase/database";
 
 export default function search(fillUserFound, user) {
+
+  user = user.trime();
+
   firebase
     .database()
     .ref("/users")
@@ -12,7 +15,7 @@ export default function search(fillUserFound, user) {
       if (snapshot.exists()) {
         fillUserFound(Object.values(snapshot.val()));
       } else {
-        alert("nothing found");
+        fillUserFound([]);
       }
     });
 }

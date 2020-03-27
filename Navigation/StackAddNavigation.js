@@ -16,9 +16,16 @@ const MainStack = createStackNavigator({
         navigationOptions:({navigation})=>{
             return{
             headerTitle: "Tshjeer",
+            headerTitleStyle:{ color: "white", fontSize: 20 },
+            headerStyle:{
+                backgroundColor: '#008B45',
+                borderBottomWidth: 1,
+                borderBottomColor: 'lightgrey',
+            },
             headerLeft: () =>
                 <Icon 
-                style={{paddingLeft:10}} 
+                color="white"
+                style={{paddingLeft:10, paddingLeft:10}} 
                 name="md-menu" size={30}
                 onPress={()=>navigation.openDrawer()}
                 />,

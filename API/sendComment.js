@@ -12,6 +12,9 @@ export default function sendComment(postID, comment, showInComments){
         try{
             const user = firebase.auth().currentUser || null;
             if(user){
+
+                comment = comment.trim();
+
                 var commentInfo = {userID: user.uid, comment: comment, timestamp: new Date().getTime()};
                 firebase.database().ref('/comments/'+postID).push(commentInfo)
                 .then(()=>{

@@ -28,25 +28,49 @@ export default class SignUp extends React.Component {
     }
 }
 
+_validation = (username, email, password, confPassword) =>{
+  if(username.trim() == ""){
+    alert('Username field must be filled');
+    return false;
+  }
+  else if(/\s/.test(username.trim())){
+    alert('Username badly formatted, must no whitespace');
+    return false;
+  }
+  else if(username.trim().indexOf('$') >= 0 || 
+          username.trim().indexOf('.') >= 0 || 
+          username.trim().indexOf('[') >= 0 || 
+          username.trim().indexOf(']') >= 0 || 
+          username.trim().indexOf('{') >= 0 || 
+          username.trim().indexOf('}') >= 0 || 
+          username.trim().indexOf('#') >= 0 || 
+          username.trim().indexOf('/') >= 0 || 
+          username.trim().indexOf('%') >= 0 || 
+          username.trim().indexOf('\"') >= 0 || 
+          username.trim().indexOf('\'') >= 0 ) {
+    alert('Username badly formatted, $ ] [ # \' \" % not allowed');
+    return false;
+  }
+  else if(password === "" || confPassword === ""){
+    alert('Password fields must be filled');
+    return false;
+  }
+  else if(password != confPassword){
+    alert('Passwords didn\'t match');
+    return false;
+  }
+ 
+  return true;
+}
+
 _signup = () =>{
   this.setState({loading: true})
 
   const { username, email, password, confPassword } = this.state;
 
   //we need validation procedure better than this :(
-  if(username.trim() === ""){
-    alert('Username field must be filled');
-    this.setState({loading: false})
-  }
-  else if(password === "" || confPassword === ""){
-    alert('Password fields must be filled');
-    this.setState({loading: false})
-  }
-  else if(password != confPassword){
-    alert('Passwords didn\'t match');
-    this.setState({loading: false})
-  }
-  else{//creating user account, by calling a function in API folder 
+  if(this._validation(username, email, password, confPassword)){
+    //creating user account, by calling a function in API folder 
     createUser(username, email, password)
     .then(() => {
       console.log('user account created')
@@ -56,6 +80,8 @@ _signup = () =>{
       alert(err)
     })
   }
+  else
+    this.setState({loading: false})
 }
 
 render(){

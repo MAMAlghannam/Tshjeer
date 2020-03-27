@@ -165,7 +165,7 @@ class Login_SignUP extends Component {
               <Circle r={height+50}cx={width/2}/>
             </ClipPath>
           <Image
-            href={require('../assets/Tsh33.png')}
+            href={require('../assets/11.jpg')}
            width={width}
            height={height+50}
            preserveAspectRatio="xMidYmid slice"
@@ -201,6 +201,7 @@ class Login_SignUP extends Component {
           
           </TouchableOpacity>
           <Animated.View style={{
+            paddingTop: 15,
             zIndex: this.textInputZindex,
             opacity:this.textInputOpacity,
             transform:[{translateY:this.textInputY}],
@@ -303,8 +304,9 @@ borderTopRightRadius: 30,
     marginHorizontal:20,
     paddingLeft:10,
     marginVertical:5,
-    borderColor:'rgba(0,0,0,0.2)',
+    borderColor:'grey'/*'rgba(0,0,0,0.2)'*/,
     fontSize: 15, 
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    backgroundColor: 'white'
   }
 });

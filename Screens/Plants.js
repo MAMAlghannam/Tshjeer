@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, RefreshControl} from 'react-native';
 import { Header } from 'react-native-elements';
 import Post from '../Components/Post';
 
@@ -19,19 +19,27 @@ class Plants extends React.Component{
         super(props);
         this.state = {
           posts: [],
+          refreshing: true
         }
     }
 
     componentDidMount(){
-        this._isMounted = true;
+        this._isMounted = true;/*
         var { userID } = this.props.navigation.state.params;
-        getUsersPosts(userID, this.fillPosts)
+        getUsersPosts(userID, this.fillPosts)*/
+        this.bringPosts();
     }
   
     fillPosts = (p) =>{
       if (this._isMounted){
-          this.setState({posts: p})
+          this.setState({posts: p, refreshing: false})
       }
+    }
+
+    bringPosts = () =>{
+        this.setState({posts: []})
+        var { userID } = this.props.navigation.state.params;
+        getUsersPosts(userID, this.fillPosts)
     }
 
     render(){
@@ -39,31 +47,49 @@ class Plants extends React.Component{
             <View style={{flex: 1}}>
                 <Header
                     containerStyle={{backgroundColor: 'white'}}
-                    leftComponent={{ icon: 'keyboard-arrow-left', size: 40, onPress: ()=> { this.props.navigation.goBack() } }}
-                    centerComponent={ <Text style={{fontSize: 20,fontWeight: '500'}}>Plants</Text> }
+                    leftComponent={{ icon: 'keyboard-arrow-left', size: 40, color: '#008B45', onPress: ()=> { this.props.navigation.goBack() } }}
+                    centerComponent={ <Text style={{color: '#008B45', fontSize: 20, fontWeight: '500'}}>Plants</Text> }
                 />
-                <ScrollView style={{flex: 1}}>
-                {
-                Object.entries(this.state.posts).map((post, index)=>{
-                    if(!post[1].isQuestion){
-                        return (
-                        <Post
-                            placed="Map"
-                            userID={post[1].uid}
-                            postID={post[0]}
-                            imageUri={post[1].image}
-                            isQuestion={post[1].isQuestion}
-                            since={post[1].since}
-                            desc={post[1].description}
-                            lastTimeWatered={post[1].lastTimeWatered}
-                            coords={post[1].coords}
-                            navigation={this.props.navigation.navigate}
-                        />
-                        )
+                {   this.state.posts.length == 0 ?
+                    //if there is NO plants
+                    <ScrollView style={{backgroundColor: '#efefef'}}
+                    contentContainerStyle={{alignItems: 'center'}}
+                    refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringPosts} />}
+                    >
+                    <Text style={{fontSize: 18, color: 'grey'}}>No plants yet</Text>
+                </ScrollView> 
+                :
+                    //if there are plants
+                    <ScrollView style={{flex: 1}}
+                    refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringPosts} />}
+                    >
+                    {
+                    Object.entries(this.state.posts)
+                    .sort((a, b)=>{
+                        return b[1].since-a[1].since;
+                    })
+                    .map((post, index)=>{
+                        if(!post[1].isQuestion){
+                            return (
+                            <Post
+                                key={post[0]}
+                                placed="Map"
+                                userID={post[1].uid}
+                                postID={post[0]}
+                                imageUri={post[1].image}
+                                isQuestion={post[1].isQuestion}
+                                since={post[1].since}
+                                desc={post[1].description}
+                                lastTimeWatered={post[1].lastTimeWatered}
+                                coords={post[1].coords}
+                                navigation={this.props.navigation.navigate}
+                            />
+                            )
+                        }
+                    })
                     }
-                })
+                    </ScrollView>
                 }
-                </ScrollView>
             </View>
         )
     }

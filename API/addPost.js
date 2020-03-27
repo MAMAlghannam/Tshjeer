@@ -17,6 +17,8 @@ export default function addPost(photo, coords, desc){
             const storage = firebase.storage();
             const user = firebase.auth().currentUser;
 
+            desc = desc.trim();
+
             /*1. get image as blob
             firebase SDK wouldn't accept base64 here !!, 
             so we have to convert it to blob by calling fetch()*/

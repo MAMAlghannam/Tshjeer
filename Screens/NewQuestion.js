@@ -37,6 +37,10 @@ class NewQuestion extends React.Component{
     }
 
     addQuestion = () =>{
+
+        if(this.state.desc == "")
+            return ;
+
         this.setState({uploading: true})
         //this function in API folder
         addQuestion(this.state.coords, this.state.desc)

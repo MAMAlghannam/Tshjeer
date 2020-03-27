@@ -14,7 +14,17 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 const ProfileAndEditInfo = createStackNavigator({
     Main:{
-        screen: Profile
+        screen: Profile,
+        navigationOptions: ({navigation}) => {
+            return {  
+                headerTitleStyle:{ color: "white", fontSize: 20 },
+                headerStyle:{
+                    backgroundColor: '#008B45',
+                    borderBottomWidth: 1,
+                    borderBottomColor: 'lightgrey',
+                }
+            }
+        }
     },
     EditInfo:{
         screen: EditInfo
@@ -24,9 +34,10 @@ const ProfileAndEditInfo = createStackNavigator({
     mode: 'modal',
     // headerMode: 'none',
     defaultNavigationOptions:({navigation})=>{
-        return{   
+        return{
             headerLeft: () =>
             <Icon 
+            color="white"
             style={{paddingLeft:10}} 
             name="md-menu" size={30}
             onPress={()=>navigation.openDrawer()}
@@ -63,6 +74,7 @@ const ProfileStackNavigation = createStackNavigator({
         return{
         headerLeft: () =>
             <Icon 
+            color="red"
             style={{paddingLeft:10}} 
             name="md-menu" size={30}
             onPress={()=>navigation.openDrawer()}

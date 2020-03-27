@@ -59,8 +59,8 @@ class CommentsScreen extends React.Component{
         <View style={{flex: 1, borderColor: 'blue'}}>
             <Header
                 containerStyle={{backgroundColor: 'white'}}
-                leftComponent={{ icon: 'keyboard-arrow-left', size: 40, onPress: ()=> { this.props.navigation.goBack() } }}
-                centerComponent={ <Text style={{fontSize: 20,fontWeight: '500'}}>Comments</Text> }
+                leftComponent={{ icon: 'keyboard-arrow-left', size: 40, color: '#008B45', onPress: ()=> { this.props.navigation.goBack() } }}
+                centerComponent={ <Text style={{color: '#008B45', fontSize: 20,fontWeight: '500'}}>Comments</Text> }
             />
             <View style={{flex: 8}}>
             <FlatList

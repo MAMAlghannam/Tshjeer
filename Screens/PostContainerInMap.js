@@ -7,6 +7,12 @@ class PostContainerInMap extends React.Component{
     static navigationOptions = ({ navigation }) => {
         return {
           headerTitle: navigation.state.params.isQuestion ? "Question" : "Post",
+          headerTitleStyle:{ color: "#008B45", fontSize: 20 },
+          headerStyle:{
+              backgroundColor: 'white',
+              borderBottomWidth: 1,
+              borderBottomColor: 'lightgrey',
+          },
         }
     };
 

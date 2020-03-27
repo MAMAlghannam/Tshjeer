@@ -13,6 +13,9 @@ function createUser(username, email, password){
         var uid; //to share the uid with step 4
         const database = firebase.database();
 
+        username = username.trim();
+        email = email.trim();
+
         //1. check whether the username is exists or not
         checkUsername(username)
         .then(()=>{

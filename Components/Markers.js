@@ -122,7 +122,7 @@ function getStatusColor(postInfo){
   var diffInHours = moment().diff(postInfo.lastTimeWatered, 'h');
   if(diffInHours < 1)
     return 'blue';
-  else if(diffInHours < 24 && diffInHours > 15)
+  else if(diffInHours < 24)
     return 'green';
   else 
     return 'red';

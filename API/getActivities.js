@@ -10,6 +10,6 @@ export default function getActivities(sendActivities){
             sendActivities(snapshot.val())
         }
         else
-        sendActivities([])
+            sendActivities([])
     })
 }

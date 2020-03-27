@@ -26,6 +26,12 @@ export default class Profile extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: "Profile",
+      headerTitleStyle:{ color: "#008B45", fontSize: 20 },
+      headerStyle:{
+          backgroundColor: 'white',
+          borderBottomWidth: 1,
+          borderBottomColor: 'lightgrey',
+      },
     }
   };
 

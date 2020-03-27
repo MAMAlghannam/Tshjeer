@@ -25,9 +25,12 @@ class App extends React.Component {
 
   searchedUserFunction = text => {
     // first we will change the state (searchedUser = what the user typed)
-    this.setState({
-      searchedUser: text
-    });
+    if(text == ""){
+      this.setState({ searchedUser: text ,userFound: [] });
+      return ;
+    }
+    
+    this.setState({ searchedUser: text });
     search(this.fillUserFound, text);
   };
 

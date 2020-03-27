@@ -40,9 +40,9 @@ export default class Activities extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
-          containerStyle={{backgroundColor: 'white'}}
-          leftComponent={{ icon: 'menu', size: 30, onPress: ()=> { this.props.navigation.openDrawer() } }}
-          centerComponent={ <Text style={{fontSize: 20,fontWeight: '500'}}>Activities</Text> }
+          containerStyle={{backgroundColor: '#008B45'}}
+          leftComponent={{ icon: 'menu', size: 30, color: 'white', onPress: ()=> { this.props.navigation.openDrawer() } }}
+          centerComponent={ <Text style={{color: 'white', fontSize: 20,fontWeight: '500'}}>Activities</Text> }
         />
       { activities.length == 0 ? 
         //if there is no activity found
@@ -60,7 +60,7 @@ export default class Activities extends React.Component {
           }
         >
         {
-          Object.entries(activities).map((activity, index)=>(
+          Object.entries(activities).reverse().map((activity, index)=>(
             <ActivityItem 
               key={activity[0]} 
               activity={activity[1]} 
