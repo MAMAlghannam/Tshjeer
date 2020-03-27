@@ -33,7 +33,7 @@ export default class Profile extends React.Component {
           borderBottomColor: 'lightgrey',
       },
     }
-  };
+  }
 
   constructor(props){
     super(props)
@@ -81,6 +81,7 @@ export default class Profile extends React.Component {
   }
 
   componentWillUnmount(){
+    console.log('profile will unmount')
     unsubscribeRef();
   }
   
@@ -120,13 +121,13 @@ export default class Profile extends React.Component {
                 */
                 params ? 
                   params.userID == user.uid ? 
-                  <Button transparent title="EditInfo" onPress={()=>this.props.navigation.navigate('EditInfo')}>
+                  <Button transparent title="EditInfo" onPress={()=>this.props.navigation.navigate('EditInfo', {uid: uidForNavigating})}>
                     <Text  style={{ fontSize:15 , color:"#3492ca"}}>Edit </Text>
                   </Button>
                   :
                   <FollowFunctionality userID={params.userID} />
                 : 
-                <Button transparent title="EditInfo" onPress={()=>this.props.navigation.navigate('EditInfo')}>
+                <Button transparent title="EditInfo" onPress={()=>this.props.navigation.navigate('EditInfo', {uid: uidForNavigating})}>
                   <Text  style={{ fontSize:15 , color:"#3492ca"}}>Edit </Text>
                 </Button> 
               }
@@ -142,7 +143,7 @@ export default class Profile extends React.Component {
               title="Plants" 
               onPress={()=>this.props.navigation.navigate('Plants', {userID: uidForNavigating})}
               style={{height:80 ,width:345 ,alignSelf:"center" ,marginTop:7,backgroundColor:"#83e345"}}
-            >
+            > 
               <View style={{ flex:1,justifyContent: 'space-between',alignItems: "center",flexDirection:'row'}}>
                 <Left>
                   <View style={{flex:1,justifyContent: "center",alignItems: "center"}}>
