@@ -46,9 +46,9 @@ class Watering extends React.Component{
         return (
             <View style={{flex: 1}}>
                 <Header
-                    containerStyle={{backgroundColor: 'white'}}
-                    leftComponent={{ icon: 'keyboard-arrow-left', size: 40, color: '#008B45', onPress: ()=> { this.props.navigation.goBack() } }}
-                    centerComponent={ <Text style={{color: '#008B45', fontSize: 20,fontWeight: '500'}}>Watering</Text> }
+                    containerStyle={{backgroundColor: '#8FBC8F'}}
+                    leftComponent={{ icon: 'keyboard-arrow-left', size: 40, color: 'white', onPress: ()=> { this.props.navigation.goBack() } }}
+                    centerComponent={ <Text style={{color: 'white', fontSize: 20,fontWeight: '500'}}>Watering</Text> }
                 />
                 {   posts.length == 0 ?
                     //if there is NO plants

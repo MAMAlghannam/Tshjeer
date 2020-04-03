@@ -22,9 +22,10 @@ const MainStack = createStackNavigator({
             headerTitle: "Tshjeer",
             headerTitleStyle:{ color: "white", fontSize: 20 },
             headerStyle:{
-                backgroundColor: '#008B45',
+                backgroundColor: '#8FBC8F',
                 borderBottomWidth: 1,
                 borderBottomColor: 'lightgrey',
+                
             },
             headerLeft: () =>
                 <Icon 

@@ -77,7 +77,7 @@ class Post extends React.Component{
                     : <Image source={{uri: imageUri}} resizeMode="contain" style={{ height: 300, width: null, flex: 1 }} />
                 }
                 </CardItem>
-                <View><Text>{desc}</Text></View>
+                <View style={{padding:25}}><Text>{desc}</Text></View>
                 {/*buttons*/}
                 <CardItem style={{ height: 45 }}>
                     <Left>

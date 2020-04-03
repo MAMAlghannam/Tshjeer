@@ -164,8 +164,8 @@ class Login_SignUP extends Component {
             <ClipPath id="clip">
               <Circle r={height+50}cx={width/2}/>
             </ClipPath>
-          <Image
-            href={require('../assets/11.jpg')}
+          <Image  
+            href={require('../assets/Tsh33.jpg')}
            width={width}
            height={height+50}
            preserveAspectRatio="xMidYmid slice"

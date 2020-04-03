@@ -40,7 +40,7 @@ export default class Activities extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Header
-          containerStyle={{backgroundColor: '#008B45'}}
+          containerStyle={{backgroundColor: '#8FBC8F'}}
           leftComponent={{ icon: 'menu', size: 30, color: 'white', onPress: ()=> { this.props.navigation.openDrawer() } }}
           centerComponent={ <Text style={{color: 'white', fontSize: 20,fontWeight: '500'}}>Activities</Text> }
         />

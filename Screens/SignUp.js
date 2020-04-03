@@ -1,19 +1,19 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
-  View,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,ImageBackground, AppRegistry,Image
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons ,Entypo} from "@expo/vector-icons";
+import { Container, Header, Content, Card, CardItem, Text, Body,View ,Button, Icon, Fab,Left,Title,Right} from 'native-base';
 
 //importing createUser function
 import createUser from '../API/createUser';
 
 export default class SignUp extends React.Component {
+  
 
   constructor(props){
     super(props);
@@ -85,27 +85,53 @@ _signup = () =>{
 }
 
 render(){
+  const { navigation } = this.props;
 return (    
+
+  
+
   <View style={{ flex: 1 }}>
-    <LinearGradient
-      start={{ x: 2, y: 0 }}
-      end={{ x: 0, y: 2 }}
-      colors={["#f5fffc", "#71b280"]}
-      style={{ flex: 1 }}
-      
-    >
+    
+   
+    <ImageBackground source={ require('../assets/16.png')} style= {{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+       
+        opacity: 0.9
+    }} >
+    <Header style={{opacity: 0.8}}>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.navigate('Login_SignUp')}>
+              <Icon style={{color:"green"}} name='arrow-back'  />
+              <Text style={{color:"green"}}>Back</Text>
+            </Button>
+          </Left>
+          <Body>
+            <Title style={{fontSize:18}}>SignUp</Title>
+          </Body>
+          <Right>
+            <Button transparent>
+              <Text></Text>
+            </Button>
+          </Right>
+        </Header>
+
+        
+
+
       <View style={styles.container}>
         <View
           style={{
             flexDirection: "row",
             justifyContent: "center",
-            marginBottom: 3
+            marginTop:50
           }}
         >
 
-        
+          <Image style={{width:100,height:100,borderRadius:60,borderWidth:1,borderColor:"#FFF"}} source={require('../assets/550.png')} />
         </View>
-          <View style={{marginTop:120}}>
+          <View style={{marginTop:20}}>
         <View style={styles.inputContainer}>
           <Entypo
             style={styles.icon}
@@ -116,6 +142,7 @@ return (
           {/*username field*/}
           <TextInput
             placeholder="Username"
+            placeholderTextColor="#FFFFFF"
             value={this.state.username}
             onChangeText={(name)=>{this.setState({username: name})}}
             style={styles.input}
@@ -136,6 +163,7 @@ return (
           <TextInput
             ref={ref => {this.emailField = ref}}
             placeholder="Email"
+            placeholderTextColor="#FFFFFF"
             style={styles.input}
             multiline={false}
             value={this.state.email}
@@ -155,6 +183,7 @@ return (
           <TextInput
             ref={ref => {this.passwordField = ref}}
             placeholder="Password"
+            placeholderTextColor="#FFFFFF"
             style={styles.input}
             multiline={false}
             value={this.state.password}
@@ -162,6 +191,7 @@ return (
             returnKeyType="next"
             onSubmitEditing={() => this.confPasswordField.focus()}
             secureTextEntry={true}
+            
           />
         </View>
         <View style={styles.inputContainer}>
@@ -175,6 +205,7 @@ return (
           <TextInput
             ref={ref => {this.confPasswordField = ref}}
             placeholder="Confirm Password"
+            placeholderTextColor="#FFFFFF"
             style={styles.input}
             multiline={false}
             value={this.state.confPassword}
@@ -207,8 +238,8 @@ return (
         </View>
         <View style={styles.bottom}>
           <View style={styles.signupContainer}>
-            <Text style={{ color: "#FFFFFF" }}>or signup with, click f to login</Text>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Login_SignUp')} style={styles.signupButton}>
+            <Text style={{ color: "#FFFFFF" }}>or signup with </Text>
+            <TouchableOpacity  style={styles.signupButton}>
               <Ionicons name="logo-facebook" size={30} color="#71b280" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.signupButton}>
@@ -216,8 +247,8 @@ return (
             </TouchableOpacity>
           </View>
         </View>
-      </View>
-    </LinearGradient>
+      </View></ImageBackground>
+   
   </View>
 );
 }
@@ -240,13 +271,14 @@ inputContainer: {
   alignItems: "stretch",
   overflow: "hidden",
   borderRadius:50,
-  backgroundColor:'rgba(250, 250, 250,0.3)'
+  
   
 },
 input: {
   flex: 1,
   color: "#FFFFFF",
-  fontSize: 17
+  fontSize: 20,
+  
 },
 icon: {
   marginEnd: 10

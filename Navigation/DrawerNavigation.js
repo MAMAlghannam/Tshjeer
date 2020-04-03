@@ -35,7 +35,8 @@ const customDrawerContentComponent = props => {
 
     return (
     <SafeAreaProvider>
-    <ScrollView>
+        
+    <ScrollView  style={{ backgroundColor:"#8FBC8F"}}>
         <SafeAreaView
         style={styles.container}
         forceInset={{ top: 'always', horizontal: 'never' }}>
@@ -43,7 +44,7 @@ const customDrawerContentComponent = props => {
                 {/*contains user's avatar and name*/}
                 <View style={styles.userInfo}>
                     <Avatar size="medium" source={{uri: avatar, cache: 'force-cache'}} rounded title="username" activeOpacity={0.7} />
-                    <Text style={{marginLeft: 5, fontSize: 18}}>{username}</Text>
+                    <Text style={{marginLeft: 5, fontSize: 18,color:"white"}}>{username}</Text>
                 </View>
                 {/*contains number of trees and watering*/}
                 <View style={styles.efforts}>
@@ -63,7 +64,7 @@ const customDrawerContentComponent = props => {
                 <DrawerItems {...props} />
             </View>
         </SafeAreaView>
-    </ScrollView>
+    
     {/*Here is the footer that has logout button*/}
     <View style={styles.footer}>
         <TouchableOpacity disabled={loggingOut}
@@ -81,7 +82,7 @@ const customDrawerContentComponent = props => {
             </View>
         }   
         </TouchableOpacity>
-    </View>
+    </View></ScrollView>
     </SafeAreaProvider>
     )
     }
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
   options:{
     padding: 1,
     flex: 8,
+    color:'#FFFF',
   },
   footer:{
     flex: 1,
@@ -136,15 +138,7 @@ const DrawerNavigation = createDrawerNavigator({
             )
         }
     },
-    Temp:{
-        screen: TempScreen,
-        navigationOptions:{
-            drawerLabel: "Temp",
-            drawerIcon: ({tintColor}) => (
-                <Ionicons name={'ios-remove'} color={tintColor} style={{marginTop: 7}} size={27} />
-            )
-        }
-    },
+    
     Profile:{
         screen: Profile,
         navigationOptions:{

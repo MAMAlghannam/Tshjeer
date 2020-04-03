@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ActivityIndicator ,ImageBackground,Image,} from 'react-native';
+import{Header} from "native-base";
 import MapView, {PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import Markers from '../Components/Markers'
@@ -38,7 +39,18 @@ export default class Map extends React.Component {
   render(){
     const {latitude, longitude} = this.state
     if(latitude){
+      const ImageHeader = props => (
+        <View style={{ backgroundColor: '#eee' }}>
+          <Image
+            style={StyleSheet.absoluteFill}
+            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Hopetoun_falls.jpg' }}
+          />
+          <Header {...props} style={{ backgroundColor: 'transparent' }}/>
+        </View>
+      );
     return (
+
+      
     <View style={styles.container}>
       <MapView
       showsUserLocation
