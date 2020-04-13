@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, 
-  Text, StyleSheet,  Dimensions, TextInput, ActivityIndicator, TouchableOpacity} from 'react-native';
+  Text, StyleSheet,  Dimensions, TextInput, ActivityIndicator, TouchableOpacity, Platform} from 'react-native';
 import Svg,{Image,Circle,ClipPath}from 'react-native-svg'
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
@@ -144,14 +144,15 @@ class Login_SignUP extends Component {
   //render function
   render() {
     return (
+      <View style={{flex: 1}}>
       <KeyboardAwareScrollView
         contentContainerStyle={{
           flex: 1,
           backgroundColor: 'white',
           justifyContent: 'flex-end'
         }}
-        enableOnAndroid={true} 
-        extraScrollHeight={5}
+        enableOnAndroid={true}
+        extraScrollHeight={Platform.OS == "android" ? -200 : 5}
       >
         
         <Animated.View
@@ -254,6 +255,7 @@ class Login_SignUP extends Component {
           </Animated.View>
         </View>
       </KeyboardAwareScrollView>
+      </View>
     );
   }
 }

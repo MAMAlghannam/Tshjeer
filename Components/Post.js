@@ -11,6 +11,7 @@ import { Ionicons, EvilIcons ,Feather,FontAwesome} from '@expo/vector-icons';
 import moment from 'moment';
 import Comment from './Comment';
 import WaterButton from './WaterButton';
+import DeleteButton from './DeleteButton';
 
 //importing getUserByUID
 import getUserByUID from '../API/getUserByUID';
@@ -24,7 +25,9 @@ class Post extends React.Component{
             avatar: "'../images/avatarImg.png'",
             username: "",
             briefComments: [],
-            wateredTime: null
+            wateredTime: null,
+
+            isDeleted: false
         }
     }
     
@@ -41,11 +44,17 @@ class Post extends React.Component{
         }
     }
 
+    setIsDeleted = () =>{
+        this.setState({isDeleted: true})
+    }
+
     setLastTimeWatered = (newTime) => {
         this.setState({wateredTime: newTime})
     }
 
     render() {
+        if(this.state.isDeleted) return null;
+        
         const {userID, postID, imageUri, isQuestion, desc, since, lastTimeWatered, coords, placed} = this.props;
         
         const { wateredTime }  = this.state;
@@ -69,6 +78,9 @@ class Post extends React.Component{
                             <Text note>{moment(new Date(since)).fromNow()}</Text>
                         </Body>
                     </Left>
+                    <Right>
+                        <DeleteButton postID={postID} userID={userID} deleted={this.setIsDeleted}/>
+                    </Right>
                 </CardItem>
                 {/*image and description*/}
                 <CardItem cardBody>

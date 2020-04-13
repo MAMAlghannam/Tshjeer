@@ -45,8 +45,11 @@ export default class TimeLine extends React.Component {
     refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringPosts} />}
     >
     {
-      Object.values(this.state.posts).map((post, index)=>
-        Object.entries(post).map((p)=>(
+      Object.values(this.state.posts).map((post, index)=>{
+        if(post == null)
+          return ;
+
+        return Object.entries(post).map((p)=>(
             <Post
               key={p[0]}
               placed="TimeLine"
@@ -62,7 +65,7 @@ export default class TimeLine extends React.Component {
             />
           )
         )
-      )
+      })
     }
     </ScrollView>
   );

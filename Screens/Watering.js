@@ -21,6 +21,7 @@ class Watering extends React.Component{
           posts: [],
           listOfpostID: [],
           listOftimestamps: [],
+          listOfWateredKeys: [],
           refreshing: true
         }
     }
@@ -29,8 +30,8 @@ class Watering extends React.Component{
         this.bringPosts();
     }
 
-    fillPosts = (p, l, pID) =>{
-        this.setState({posts: p, listOftimestamps: l, listOfpostID: pID, refreshing: false})
+    fillPosts = (p, l, pID, keys) =>{
+        this.setState({posts: p, listOftimestamps: l, listOfpostID: pID, listOfWateredKeys: keys, refreshing: false})
       }
   
     bringPosts = () =>{
@@ -41,7 +42,7 @@ class Watering extends React.Component{
  
     render(){
 
-        const { posts, listOftimestamps, listOfpostID, refreshing } = this.state;
+        const { posts, listOftimestamps, listOfpostID, listOfWateredKeys, refreshing } = this.state;
         
         return (
             <View style={{flex: 1}}>
@@ -66,7 +67,7 @@ class Watering extends React.Component{
                     posts.map((post, index)=>{
                     if(!post.isQuestion){
                         return (
-                        <View key={listOfpostID[index]} >
+                        <View key={listOfWateredKeys[index]} >
                         <View style={styles.back}>
                             <Text style={styles.label}>Watered this since {moment(listOftimestamps[index]).fromNow()}</Text>
                             <Post

@@ -43,7 +43,10 @@ class NewPost extends React.Component{
         addPost(this.state.photo, this.state.coords, this.state.desc)
         .then((res)=> {
             this.setState({uploading: false, uploaded: true})
-            alert(res.data+" "+this.state.uploaded);
+            // alert(res.data+" "+this.state.uploaded);
+            setTimeout(()=>{
+                this.props.navigation.navigate('Add')
+            }, 1000)
         })
         .catch((err)=> {
             this.setState({uploading: false})

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, FlatList, } from 'react-native'; 
+import { View, StyleSheet, Text, FlatList, I18nManager } from 'react-native'; 
 import CommentForm from '../Components/CommentForm';
 import Comment from '../Components/Comment';
 import { Header } from 'react-native-elements';
@@ -22,7 +22,8 @@ class CommentsScreen extends React.Component{
     };
 
     constructor(props){
-        super(props);
+        super(props); 
+        // I18nManager.forceRTL(false); 
         this.state = {
             comments: [],
             extraComment: null

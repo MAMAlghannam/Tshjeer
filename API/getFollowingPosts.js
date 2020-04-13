@@ -1,6 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/database'
 
+/*
+    This API looks for whom the curren user is follwoing then bring their posts from the database 
+*/
+
 export default function getAllPosts(sendPosts){
     const user = firebase.auth().currentUser;
     const rootRef = firebase.database().ref(); 

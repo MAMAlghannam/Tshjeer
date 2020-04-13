@@ -3,7 +3,7 @@ import "firebase/database";
 
 export default function search(fillUserFound, user) {
 
-  user = user.trime();
+  user = user.trim();
 
   firebase
     .database()

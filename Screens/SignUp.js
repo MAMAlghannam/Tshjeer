@@ -3,11 +3,14 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator,ImageBackground, AppRegistry,Image
+  ActivityIndicator,ImageBackground, ScrollView, Image, Platform
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons ,Entypo} from "@expo/vector-icons";
-import { Container, Header, Content, Card, CardItem, Text, Body,View ,Button, Icon, Fab,Left,Title,Right} from 'native-base';
+import { Container, /*Header,*/ Content, Card, CardItem, Text, Body,View ,Button, Icon, Fab,Left,Title,Right} from 'native-base';
+import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
+import { Header } from 'react-native-elements'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 //importing createUser function
 import createUser from '../API/createUser';
@@ -100,7 +103,7 @@ return (
        
         opacity: 0.9
     }} >
-    <Header style={{opacity: 0.8}}>
+    {/* <Header style={{opacity: 0.8}}>
           <Left>
             <Button transparent onPress={() => this.props.navigation.navigate('Login_SignUp')}>
               <Icon style={{color:"green"}} name='arrow-back'  />
@@ -108,41 +111,54 @@ return (
             </Button>
           </Left>
           <Body>
-            <Title style={{fontSize:18}}>SignUp</Title>
+            <Text style={{fontSize:18, fontWeight: 'bold'}}>SignUp</Text>
           </Body>
           <Right>
             <Button transparent>
               <Text></Text>
             </Button>
           </Right>
-        </Header>
+        </Header> */}
 
         
-
+      <Header
+        containerStyle={{backgroundColor: 'white', opacity: 0.8}}
+        leftComponent={{ icon: 'keyboard-arrow-left', size: 40, color: 'black', onPress: ()=> { this.props.navigation.navigate('Login_SignUp') } }}
+        centerComponent={ <Text style={{color: 'black', fontSize: 20,fontWeight: '500'}}>Sign Up</Text> }
+      />
 
       <View style={styles.container}>
         <View
           style={{
             flexDirection: "row",
             justifyContent: "center",
-            marginTop:50
+            marginTop:60
           }}
         >
 
-          <Image style={{width:100,height:100,borderRadius:60,borderWidth:1,borderColor:"#FFF"}} source={require('../assets/550.png')} />
+          {/* <Image style={{width:100,height:100,borderRadius:60,borderWidth:1,borderColor:"#FFF"}} source={require('../assets/550.png')} /> */}
         </View>
-          <View style={{marginTop:20}}>
+        
+        <KeyboardAwareScrollView
+        contentContainerStyle={{
+          // flex: 1,
+          // backgroundColor: 'white',
+          // justifyContent: 'flex-end'
+        }}
+        enableOnAndroid={true}
+        extraScrollHeight={Platform.OS == "android" ? -200 : 5}
+        >
         <View style={styles.inputContainer}>
           <Entypo
             style={styles.icon}
             name="user"
             size={30}
-            color="#FFFFFF"
+            color="#71b280"
           />
           {/*username field*/}
           <TextInput
             placeholder="Username"
-            placeholderTextColor="#FFFFFF"
+            placeholderTextColor="grey"
             value={this.state.username}
             onChangeText={(name)=>{this.setState({username: name})}}
             style={styles.input}
@@ -150,20 +166,19 @@ return (
             returnKeyType="next"
             onSubmitEditing={() => this.emailField.focus()}
           />
-          
         </View>
         <View style={styles.inputContainer}>
           <Ionicons
             style={styles.icon}
             name="md-mail"
             size={30}
-            color="#FFFFFF"
+            color="#71b280"
           />
           {/*email field*/}
           <TextInput
             ref={ref => {this.emailField = ref}}
             placeholder="Email"
-            placeholderTextColor="#FFFFFF"
+            placeholderTextColor="grey"
             style={styles.input}
             multiline={false}
             value={this.state.email}
@@ -172,18 +187,19 @@ return (
             onSubmitEditing={() => this.passwordField.focus()}
           />
           
-        </View><View style={styles.inputContainer}>
+        </View>
+        <View style={styles.inputContainer}>
           <Ionicons
             style={styles.icon}
             name="md-lock"
             size={30}
-            color="#FFFFFF"
+            color="#71b280"
           />
           {/*password field*/}
           <TextInput
             ref={ref => {this.passwordField = ref}}
             placeholder="Password"
-            placeholderTextColor="#FFFFFF"
+            placeholderTextColor="grey"
             style={styles.input}
             multiline={false}
             value={this.state.password}
@@ -199,13 +215,13 @@ return (
             style={styles.icon}
             name="md-lock"
             size={30}
-            color="#FFFFFF"
+            color="#71b280"
           />
           {/*confirm password field*/}
           <TextInput
             ref={ref => {this.confPasswordField = ref}}
             placeholder="Confirm Password"
-            placeholderTextColor="#FFFFFF"
+            placeholderTextColor="grey"
             style={styles.input}
             multiline={false}
             value={this.state.confPassword}
@@ -222,7 +238,6 @@ return (
         >
           </View>
           
-        </View>
         <View style={styles.buttonContainer}>
         <TouchableOpacity disabled={this.state.loading} onPress={this._signup} style={styles.button}>
         {
@@ -236,7 +251,9 @@ return (
         }
         </TouchableOpacity >
         </View>
-        <View style={styles.bottom}>
+        
+        
+        <View style={{marginTop: 20}}>
           <View style={styles.signupContainer}>
             <Text style={{ color: "#FFFFFF" }}>or signup with </Text>
             <TouchableOpacity  style={styles.signupButton}>
@@ -247,7 +264,9 @@ return (
             </TouchableOpacity>
           </View>
         </View>
-      </View></ImageBackground>
+        </KeyboardAwareScrollView>
+      </View>
+    </ImageBackground>
    
   </View>
 );
@@ -257,8 +276,8 @@ return (
 const styles = StyleSheet.create({
 container: {
   flex: 1,
-  justifyContent: "center",
-  flexDirection: "column",
+  // justifyContent: "center",
+  // flexDirection: "column",
   
 },
 
@@ -271,14 +290,12 @@ inputContainer: {
   alignItems: "stretch",
   overflow: "hidden",
   borderRadius:50,
-  
-  
+  backgroundColor: 'rgba(255, 255, 255, 0.8)'
 },
 input: {
   flex: 1,
-  color: "#FFFFFF",
-  fontSize: 20,
-  
+  color: "black",
+  fontSize: 18,
 },
 icon: {
   marginEnd: 10

@@ -4,7 +4,8 @@ import 'firebase/auth'
 import 'firebase/functions'
 
 /*
-    
+    This API just taking the comment from the current user and it requires postID, comment and a function called showInComments
+    to append the comment when the sending succesded
 */
 
 export default function sendComment(postID, comment, showInComments){

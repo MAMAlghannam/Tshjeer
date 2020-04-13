@@ -4,6 +4,7 @@ import TimeLine from '../Screens/TimeLine';
 import Icon from '@expo/vector-icons/Ionicons';
 import Search from '../Screens/Search';
 import SearchButton from '../Components/SearchButton';
+import ListButton from '../Components/ListButton';
 import Profile from '../Screens/Profile';
 import Plants from '../Screens/Plants';
 import Watering from '../Screens/Watering';
@@ -26,12 +27,7 @@ const MainStack = createStackNavigator({
                 borderBottomColor: 'lightgrey',
             },
             headerLeft: () =>
-                <Icon 
-                color="white"
-                style={{paddingLeft:10, paddingLeft:10}} 
-                name="md-menu" size={30}
-                onPress={()=>navigation.openDrawer()}
-                />,
+                <ListButton navigation={navigation} />,
             headerRight: () =>
                 <SearchButton navigation={navigation}/>,
             }

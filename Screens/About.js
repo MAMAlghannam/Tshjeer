@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { ImageBackground,TouchableOpacity } from 'react-native';
 import { Ionicons, EvilIcons ,Feather,FontAwesome,MaterialIcons,AntDesign, Entypo} from '@expo/vector-icons';
-import { Container, Header, Content, Card, CardItem, Text, Body,View ,Button, Icon, Fab,Left,Title,Right} from 'native-base';
+import { Container, /*Header,*/ Content, Card, CardItem, Text, Body,View ,Button, Icon, Fab,Left,Title,Right} from 'native-base';
+import { Header } from 'react-native-elements'
+import ListButton from '../Components/ListButton';
+
 export default class About extends Component {
   constructor(props) {
     super(props)
@@ -21,11 +24,10 @@ export default class About extends Component {
        
         opacity: 0.8
     }} >
-      <Header style={{ backgroundColor:'#8FBC8F'}}>
+    {/*  <Header style={{ backgroundColor:'#8FBC8F'}}>
           <Left>
             <Button transparent onPress={()=>this.props.navigation.openDrawer()}>
               <Icon  style={{color: 'white'}}  name='menu' />
-            
             </Button>
           </Left>
           <Body>
@@ -37,6 +39,13 @@ export default class About extends Component {
             </Button>
           </Right>
         </Header>
+    */}
+      <Header
+        containerStyle={{backgroundColor: '#8FBC8F'}}
+        leftComponent={ <ListButton navigation={this.props.navigation} />}
+        centerComponent={ <Text style={{color: 'white', fontSize: 20,fontWeight: '500'}}>About</Text> }
+      />
+
         <Content >
         
  

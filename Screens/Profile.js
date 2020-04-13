@@ -63,13 +63,13 @@ export default class Profile extends React.Component {
     var { params } = this.props.navigation.state;
     if(params){
       try{
-        var { avatar, username, numberOfTrees, questions, nWatered} = await getUserByUID(params.userID)
+        var { avatar, username, numberOfTrees, questions, numberOfWatering} = await getUserByUID(params.userID)
         this.setState({ 
           username, 
           avatar,
           nTrees: numberOfTrees || 0, 
           questions: questions || 0, 
-          nWatered: nWatered || 0 
+          nWatered: numberOfWatering || 0 
         })
       }catch(err){
         console.log(params.userID)

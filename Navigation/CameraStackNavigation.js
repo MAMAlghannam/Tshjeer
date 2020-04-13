@@ -20,7 +20,7 @@ const CameraStackNavigator = createStackNavigator({
         return{
         headerRight: () =>
             <MaterialIcons 
-            style={{paddingLeft:10}} 
+            style={{paddingRight:10, paddingLeft:10}} 
             name="close" size={30}
             onPress={()=>navigation.navigate('Add')}
             />,

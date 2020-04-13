@@ -11,9 +11,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash_2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -35,6 +35,7 @@
           "apiKey": "AIzaSyBmB5Yi-K5i36m-5cZYULajRCL85MYuZMM"
         }
       }
-    }
+    },
+    "description": ""
   }
 }

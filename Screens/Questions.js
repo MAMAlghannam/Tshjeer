@@ -50,15 +50,15 @@ class Questions extends React.Component{
                     centerComponent={ <Text style={{color: 'white', fontSize: 20,fontWeight: '500'}}>Questions</Text> }
                 />
                 {   this.state.posts.length == 0 ?
-                    //if there is NO plants
+                    //if there is NO questions
                     <ScrollView style={{backgroundColor: '#efefef'}}
                     contentContainerStyle={{alignItems: 'center'}}
                     refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringPosts} />}
                     >
-                    <Text style={{fontSize: 18, color: 'grey'}}>No plants yet</Text>
+                    <Text style={{fontSize: 18, color: 'grey'}}>No questions yet</Text>
                 </ScrollView> 
                 :
-                    //if there are plants
+                    //if there are questions
                     <ScrollView style={{flex: 1}}
                     refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.bringPosts} />}
                     >

@@ -2,6 +2,13 @@ import firebase from 'firebase/app';
 import 'firebase/database'
 import 'firebase/functions'
 
+/*
+    This API has three functions:
+    1. check if the current user is following the passed userID in the function "checkFollowing"
+    2. Follow the passed userID in the function "follow"
+    3. Unfollow the passed userID in the function "unfollow"
+*/
+
 export default async function checkFollowing(userID){
     const user = firebase.auth().currentUser || null;
     const result = await firebase.database().ref('following/'+user.uid).child(userID).once('value')

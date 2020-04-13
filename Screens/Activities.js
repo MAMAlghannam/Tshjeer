@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native';
 import { Header } from 'react-native-elements'
 import ActivityItem from '../Components/ActivityItem';
+import ListButton from '../Components/ListButton';
 
 //importing from API folder
 import getActivities from '../API/getActivities'
@@ -41,7 +42,7 @@ export default class Activities extends React.Component {
       <View style={{flex: 1}}>
         <Header
           containerStyle={{backgroundColor: '#8FBC8F'}}
-          leftComponent={{ icon: 'menu', size: 30, color: 'white', onPress: ()=> { this.props.navigation.openDrawer() } }}
+          leftComponent={ <ListButton navigation={this.props.navigation} />}
           centerComponent={ <Text style={{color: 'white', fontSize: 20,fontWeight: '500'}}>Activities</Text> }
         />
       { activities.length == 0 ? 

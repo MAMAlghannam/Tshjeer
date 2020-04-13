@@ -46,7 +46,10 @@ class NewQuestion extends React.Component{
         addQuestion(this.state.coords, this.state.desc)
         .then((res)=> {
             this.setState({uploading: false, uploaded: true})
-            alert(res.data);
+            // alert(res.data);
+            setTimeout(()=>{
+                this.props.navigation.navigate('Add')
+            }, 1000)
         })
         .catch((err)=> {
             this.setState({uploading: false})

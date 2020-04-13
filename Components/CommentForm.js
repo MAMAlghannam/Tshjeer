@@ -25,7 +25,7 @@ export default class CommentForm extends React .Component{
 
     render(){
         return(
-        <KeyboardAccessoryView alwaysVisible={true}>
+        <KeyboardAccessoryView alwaysVisible={true} style={{bottom: 0}} androidAdjustResize={true}>
             <View style={styles.commentForm}>
                 <TextInput
                     style={styles.inputField}

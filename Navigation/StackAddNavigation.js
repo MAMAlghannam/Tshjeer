@@ -5,6 +5,7 @@ import TempScreen from '../Screens/TempScreen'
 import Icon from '@expo/vector-icons/Ionicons';
 import Search from '../Screens/Search';
 import SearchButton from '../Components/SearchButton';
+import ListButton from '../Components/ListButton';
 import CameraScreen from '../Screens/Camera';
 
 //Since we want search screen in modal so we have to make two separated 'createStackNavigator's for that purpos 
@@ -23,12 +24,7 @@ const MainStack = createStackNavigator({
                 borderBottomColor: 'lightgrey',
             },
             headerLeft: () =>
-                <Icon 
-                color="white"
-                style={{paddingLeft:10, paddingLeft:10}} 
-                name="md-menu" size={30}
-                onPress={()=>navigation.openDrawer()}
-                />,
+                <ListButton navigation={navigation} />,
             headerRight: () =>
                 <SearchButton navigation={navigation}/>
             }

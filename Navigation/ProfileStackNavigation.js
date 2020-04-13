@@ -8,6 +8,7 @@ import Points from '../Screens/Points';
 import EditInfo from '../Screens/EditInfo';
 import Icon from '@expo/vector-icons/Ionicons';
 import CommentsScreen from '../Screens/CommentsScreen';
+import ListButton from '../Components/ListButton';
 
 //suggested
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -36,12 +37,7 @@ const ProfileAndEditInfo = createStackNavigator({
     defaultNavigationOptions:({navigation})=>{
         return{
             headerLeft: () =>
-            <Icon 
-            color="white"
-            style={{paddingLeft:10}} 
-            name="md-menu" size={30}
-            onPress={()=>navigation.openDrawer()}
-            />,
+                <ListButton navigation={navigation} />,
         }
     }
 

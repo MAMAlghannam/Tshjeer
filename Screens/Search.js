@@ -4,7 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from "react-native";
 import { SearchBar, ListItem, FlatList } from "react-native-elements";
 import search from "../API/searchUser";
@@ -55,11 +56,11 @@ class App extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={styles.listContainer}>
-          <ScrollView>
+          <ScrollView onScroll={Keyboard.dismiss}>
             {this.state.userFound.map((user, index) => (
               <ListItem
                 key={index}
-                leftAvatar={user.avatar}
+                leftAvatar={{source: {uri: user.avatar}}}
                 title={user.username}
                 bottomDivider
                 onPress={() => {

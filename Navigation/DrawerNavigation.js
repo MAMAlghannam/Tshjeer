@@ -5,6 +5,7 @@ import Profile from "./ProfileStackNavigation";
 import Activities from "../Screens/Activities";
 import DirectMessages from "../Screens/DirectMessages";
 import About from "../Screens/About";
+import ActivitiesIcon from '../Components/ActivitiesIcon';
 
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
@@ -17,6 +18,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 // firebase/auth
 import firebase from 'firebase/app';
 import 'firebase/auth'
+
+//importing from API
+import { seen } from '../API/notifyUser';
 
 import getUserBriefInfo from '../API/getUserBriefInfo';
 
@@ -61,7 +65,14 @@ const customDrawerContentComponent = props => {
             </View>
 
             <View style={styles.options}> 
-                <DrawerItems {...props} />
+                <DrawerItems 
+                    {...props}
+                    onItemPress={({route, focused}) =>{
+                        if(route.key == "Activities")
+                            seen();
+                        props.onItemPress({route, focused})
+                    }} 
+                />
             </View>
         </SafeAreaView>
     
@@ -152,8 +163,8 @@ const DrawerNavigation = createDrawerNavigator({
         screen: Activities,
         navigationOptions:{
             drawerLabel: "Activities",
-            drawerIcon: ({tintColor}) => (
-                <Ionicons name={'md-flash'} color={tintColor} style={{marginTop: 7}} size={27} />
+            drawerIcon: ({tintColor, navigation}) => (
+                <ActivitiesIcon navigation={navigation} color={tintColor} />
             )
         }
     },

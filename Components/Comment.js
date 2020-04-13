@@ -23,7 +23,8 @@ export default class Comment extends React.Component{
         return (
             this.state.usernameFound ?
             <View style={styles.commentContainer}>
-            <Text style={styles.username}>{this.state.username}: </Text>
+            <Text style={styles.username}>{this.state.username}</Text>
+            <Text style={styles.colon}>: </Text>
             <Text style={styles.content}>{this.props.comment}</Text>
             </View>
             : null
@@ -36,9 +37,14 @@ const styles = StyleSheet.create({
         padding: 5,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
     }, 
     username:{
+        color: 'green',
+        fontWeight: 'bold',
+        fontSize: 17,
+    },
+    colon:{
         color: 'green',
         fontWeight: 'bold',
         fontSize: 17,

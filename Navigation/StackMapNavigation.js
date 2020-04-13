@@ -3,6 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Search from '../Screens/Search'; 
 import CommentsScreen from '../Screens/CommentsScreen';
 import SearchButton from '../Components/SearchButton';
+import ListButton from '../Components/ListButton';
 import Map from '../Screens/Map';
 import Icon from '@expo/vector-icons/Ionicons';
 import PostContainerInMap from '../Screens/PostContainerInMap';
@@ -28,12 +29,7 @@ const MainStack = createStackNavigator({
                 
             },
             headerLeft: () =>
-                <Icon 
-                color="white"
-                style={{paddingLeft:10, paddingLeft:10}} 
-                name="md-menu" size={30}
-                onPress={()=>navigation.openDrawer()}
-                />,
+                <ListButton navigation={navigation} />,
             headerRight: () =>
                 <SearchButton navigation={navigation}/>
             }
