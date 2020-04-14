@@ -8,23 +8,29 @@ import "firebase/auth";
 */
 
 export default function deletePost(postID) {
-  const user = firebase.auth().currentUser || null;
-  return firebase.database().ref("posts/" + postID).remove()
-  .then((result)=>{
-    firebase.database().ref("posts/" + postID+"/isQuestion")
-    .once('value', (isQuestion)=>{
-      if(isQuestion.val())
+  return new Promise((resolve, reject)=>{
+    const user = firebase.auth().currentUser || null;
+
+    const postRef = firebase.database().ref("posts/" + postID);
+    postRef.child('isQuestion').once('value', isQuestion =>{
+
+      postRef.remove();
+      
+      if(isQuestion){
         firebase.database().ref('users/'+user.uid+"/questions")
         .transaction((currentData)=>{
           return currentData - 1;
         })
-      else
+      }
+      else{
         firebase.database().ref('users/'+user.uid+"/numberOfTrees")
         .transaction((currentData)=>{
           return currentData - 1;
         })
-    })
+      }
 
-    return true;
-  });
+      resolve();
+
+    })
+  })
 }
