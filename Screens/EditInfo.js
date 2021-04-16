@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard 
 } from "react-native";
+import Expo from 'expo'
 import { Icon, Thumbnail, Button } from "native-base";
 
 //importing from API folder
