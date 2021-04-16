@@ -1,64 +1,93 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions,ImageBackground } from 'react-native';
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Dimensions,
+  ImageBackground,
+} from "react-native";
 
 export default class Add extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={[styles.buttonContainer]}>
+          <ImageBackground
+            style={{
+              height: "100%",
+              width: "100%",
+              opacity: 0.9,
+              overflow: "hidden",
 
-  render(){
-  return (
-  <View style={styles.container}>
-    <View style={[styles.buttonContainer]}>
-    <ImageBackground   style={{marginTop:4 , marginLeft:5,height: 130, width: 250, position: 'absolute', resizeMode: 'cover' }}
-    source={require('../assets/8.jpg')}
-    
-        />
-    <TouchableOpacity 
-      style={styles.button} 
-      onPress={()=>this.props.navigation.navigate('AddPost')}
-    >
-      <Text style={styles.text}>Post</Text>
-    </TouchableOpacity>
-    </View>
+              position: "absolute",
+            }}
+            source={require("../assets/8.jpg")}
+          />
+          <TouchableOpacity
+            style={{ alignItems: "center" }}
+            onPress={() => this.props.navigation.navigate("AddPost")}
+          >
+            <Text style={styles.text}>LET'S Plant</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <View
+            style={{ borderWidth: 2, width: "100%", borderColor: "#8FBC8F" }}
+          ></View>
+        </View>
 
-    <View style={[styles.buttonContainer]}>
-    <ImageBackground   style={{marginTop:4 , marginLeft:5,height: 130, width: 250, position: 'absolute', resizeMode: 'cover' }}
-    source={require('../assets/9.jpg')}
-    
-        />
-    <TouchableOpacity 
-      style={styles.button} 
-      onPress={()=>this.props.navigation.navigate('AddQuestion')}
-    >
-      <Text style={styles.text}>Question</Text>
-    </TouchableOpacity>
-    </View>
-  </View>
-  );
+        <View style={[styles.buttonContainer]}>
+          <ImageBackground
+            style={{
+              height: "100%",
+              width: "100%",
+              opacity: 0.7,
+
+              overflow: "hidden",
+              position: "absolute",
+            }}
+            source={require("../assets/quseionnew1.jpg")}
+          />
+          <TouchableOpacity
+            style={{ alignItems: "center" }}
+            onPress={() => this.props.navigation.navigate("AddQuestion")}
+          >
+            <Text style={styles.text2}>JUST ASK</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+
+    backgroundColor: "white",
   },
-  buttonContainer:{
-    width: Dimensions.get('window').width*0.7,
-    margin: Dimensions.get('window').width*0.15,
-    padding: 3,
-    borderRadius: 4
-  },  
-  button:{
-    borderRadius: 4,
+  buttonContainer: {
+    flex: 1,
+  },
+  button: {
+    borderRadius: 15,
     padding: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'white'
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#8FBC8F",
   },
-  text:{
-    fontSize: 22,
-    color: 'white',
-    fontWeight: 'bold' ,fontSize:25
-  }
+  text: {
+    marginTop: 150,
+    fontSize: 42,
+    color: "white",
+    fontWeight: "bold",
+  },
+  text2: {
+    marginTop: 150,
+    fontSize: 42,
+    color: "green",
+    fontWeight: "bold",
+  },
 });
