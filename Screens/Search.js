@@ -7,7 +7,6 @@ import {
   ScrollView,
   Keyboard
 } from "react-native";
-import Expo from 'expo'
 import { SearchBar, ListItem, FlatList } from "react-native-elements";
 import search from "../API/searchUser";
 
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e1e8ee",
-    paddingTop: Expo.Constants.statusBarHeight
+   
   },
   barContainer: {
     flex: 1,

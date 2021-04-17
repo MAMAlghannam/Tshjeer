@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard 
 } from "react-native";
-import Expo from 'expo'
+
 import { Icon, Thumbnail, Button } from "native-base";
 
 //importing from API folder
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // alignItems: "center",
-    paddingTop: Expo.Constants.statusBarHeight,
+  
     backgroundColor: "#e1e8ee"
   },
   backButton: {

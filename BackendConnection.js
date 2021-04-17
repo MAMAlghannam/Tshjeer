@@ -13,9 +13,10 @@ export default class BackendConnection{
             appId: "1:765128376944:web:3537447e7bd5b03c842ab5",
             measurementId: "G-DZB22E3BT2"
         }
+      
 
-        if (!firebase.apps.length) {
-            firebase.initializeApp(this.firebaseConfig);
+        if (!firebase.default.apps.length) {
+            firebase.default.initializeApp(this.firebaseConfig);
         }
     }
 }
